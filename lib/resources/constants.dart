@@ -10,4 +10,6 @@ class Constants {
   static const SizedBox width10=SizedBox(width: 10);
   static const SizedBox width15=SizedBox(width: 15);
   static const SizedBox width20=SizedBox(width: 20);
+
+  static const String mfNoBg='assets/logo/M-removebg-preview.png';
 }

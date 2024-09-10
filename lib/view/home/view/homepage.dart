@@ -38,29 +38,66 @@ class HomePage extends StatelessWidget {
             width: size.width,
             child: const CustomCurousel(),
           ),
+          Constants.height10,
           const Padding(
-            padding: EdgeInsets.symmetric(vertical:10,horizontal: 15),
-            child: Text('gsdvtyd',style: MyTextStyles.subHeadText,),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Text(
+              'gsdvtyd',
+              style: MyTextStyles.subHeadText,
+            ),
           ),
-        SizedBox(
-          height: size.height*0.2,
-          width: size.width,
+          SizedBox(
+            height: size.height * 0.2,
+            width: size.width,
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               scrollDirection: Axis.horizontal,
               itemCount: 6,
               separatorBuilder: (BuildContext context, int index) {
-                return  Constants.width10;
+                return Constants.width10;
               },
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  height: size.height*0.2,
-                  width: size.width*0.3,
-                  decoration: BoxDecoration(color: AppColors.white,borderRadius: BorderRadius.circular(10),),
+                  height: size.height * 0.2,
+                  width: size.width * 0.3,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 );
               },
             ),
-          )
+          ),
+          Constants.height10,
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Text(
+              'gsdvtyd',
+              style: MyTextStyles.subHeadText,
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.2,
+            width: size.width,
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              scrollDirection: Axis.horizontal,
+              itemCount: 6,
+              separatorBuilder: (BuildContext context, int index) {
+                return Constants.width10;
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: size.height * 0.2,
+                  width: size.width * 0.3,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

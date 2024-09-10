@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
+import 'package:main_ford/resources/constants.dart';
+import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/home/widgets/customlisttile.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
@@ -9,10 +11,36 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Drawer(
+    final size = MediaQuery.of(context).size;
+    return Drawer(
       backgroundColor: AppColors.drawerColor,
-      child: DrawerHeader(
-        child: Text('Main Ford'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Constants.height10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: size.height * 0.25,
+                width: size.width * 0.4,
+                child: const Image(
+                  image: AssetImage(Constants.mfNoBg),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+          const Column(
+            children: [
+              CustomListTile(text: 'Profile',),
+              CustomListTile(text: 'Refer and Earn',),
+              CustomListTile(text: 'Transaction History',),
+              CustomListTile(text: 'Logout',),
+            ],
+          ),
+          
+        ],
       ),
     );
   }
