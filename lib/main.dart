@@ -15,9 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: Typography.whiteCupertino,
+        fontFamily: 'Poppins',
+        textTheme: Typography.whiteCupertino.apply(fontFamily: 'Poppins'),
         scaffoldBackgroundColor: AppColors.bgColor,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           toolbarTextStyle: MyTextStyles.appBartextSmall,
           backgroundColor: AppColors.bgColor,
           titleTextStyle: MyTextStyles.appBartext

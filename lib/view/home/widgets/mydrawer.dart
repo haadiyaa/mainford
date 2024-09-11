@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/home/widgets/customlisttile.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -31,12 +32,14 @@ class MyDrawer extends StatelessWidget {
               ),
             ],
           ),
-          const Column(
+          Column(
             children: [
-              CustomListTile(text: 'Profile',),
-              CustomListTile(text: 'Refer and Earn',),
-              CustomListTile(text: 'Transaction History',),
-              CustomListTile(text: 'Logout',),
+              const CustomListTile(text: 'Profile',),
+              const CustomListTile(text: 'Refer and Earn',),
+              const CustomListTile(text: 'Transaction History',),
+              CustomListTile(text: 'Logout',onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginPage()));
+              },),
             ],
           ),
           
