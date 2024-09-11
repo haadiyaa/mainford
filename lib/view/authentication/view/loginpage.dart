@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
-import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/authentication/widgets/custombutton.dart';
+import 'package:main_ford/view/authentication/widgets/customtextfield.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,8 +18,10 @@ class LoginPage extends StatelessWidget {
           children: [
             GradientText(
               'MAIN FORD',
-              style:
-                  const TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,fontFamily: 'Lora'),
+              style: const TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Lora'),
               gradientType: GradientType.linear,
               gradientDirection: GradientDirection.ttb,
               radius: 4,
@@ -29,37 +32,45 @@ class LoginPage extends StatelessWidget {
               ],
             ),
             Constants.height10,
-            Text('Login using your email and password.'),
+            const Text('Login using your email and password.'),
             Constants.height15,
             Form(
               child: Column(
                 children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: AppColors.white),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.inputFieldBorderColor,
-                          width: 2,
+                  const CustomTextField(
+                    text: 'Email',
+                  ),
+                  const CustomTextField(
+                    text: 'Password',
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 20),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.white,
+                        backgroundColor: AppColors.tileColor,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.inputFieldBorderColor,
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.inputFieldBorderColor,
-                          width: 2,
-                        ),
-                      ),
+                      onPressed: () {},
+                      child: const Text('Login'),
                     ),
                   ),
+                  // CustomElButton(text: 'text')
                 ],
               ),
+            ),
+            Constants.height10,
+            GestureDetector(
+              onTap: () {},
+              child: const Text(
+                  "If you don’t have an account, request to Login here."),
             ),
           ],
         ),
