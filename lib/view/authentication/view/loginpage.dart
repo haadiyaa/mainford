@@ -52,33 +52,16 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     CustomTextField(
+                      keyboardType: TextInputType.emailAddress,
                       controller: emailController,
                       text: 'Email',
                     ),
                     CustomTextField(
+                      keyboardType: TextInputType.visiblePassword,
                       controller: passController,
                       text: 'Password',
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: AppColors.white,
-                          backgroundColor: AppColors.tileColor,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 25,
-                            vertical: 20,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Login'),
-                      ),
-                    ),
-                    // CustomElButton(text: 'text')
+                    CustomElButton(text: 'LOGIN',onPressed: (){},)
                   ],
                 ),
               ),

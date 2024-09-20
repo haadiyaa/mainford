@@ -14,9 +14,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        iconTheme: const IconThemeData(
-          color: AppColors.white,
-        ),
         actions: const [
           Text('100'),
           IconButton(

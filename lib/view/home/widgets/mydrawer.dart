@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
-import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/authentication/view/loginpage.dart';
+import 'package:main_ford/view/home/view/homepage.dart';
 import 'package:main_ford/view/home/widgets/customlisttile.dart';
+import 'package:main_ford/view/profile/view/profilepage.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
@@ -34,15 +35,35 @@ class MyDrawer extends StatelessWidget {
           ),
           Column(
             children: [
-              const CustomListTile(text: 'Profile',),
-              const CustomListTile(text: 'Refer and Earn',),
-              const CustomListTile(text: 'Transaction History',),
-              CustomListTile(text: 'Logout',onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginPage()));
-              },),
+              CustomListTile(
+                text: 'Home',
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const HomePage()));
+                },
+              ),
+              CustomListTile(
+                text: 'Profile',
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const ProfilePage()));
+                },
+              ),
+              const CustomListTile(
+                text: 'Refer and Earn',
+              ),
+              const CustomListTile(
+                text: 'Transaction History',
+              ),
+              CustomListTile(
+                text: 'Logout',
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const LoginPage()));
+                },
+              ),
             ],
           ),
-          
         ],
       ),
     );

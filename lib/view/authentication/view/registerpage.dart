@@ -54,10 +54,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Column(
                     children: [
                       CustomTextField(
+                        keyboardType: TextInputType.name,
                         text: 'Name',
                         controller: nameController,
                       ),
                       CustomTextField(
+                        keyboardType: TextInputType.emailAddress,
                         text: 'Email',
                         controller: emailController,
                       ),
@@ -73,28 +75,30 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       CustomTextField(
+                        keyboardType: TextInputType.phone,
                         text: 'Phone Number',
                         controller: phoneController,
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 20),
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: AppColors.white,
-                            backgroundColor: AppColors.tileColor,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                              vertical: 20,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Request'),
-                        ),
-                      ),
+                      // Container(
+                      //   margin: const EdgeInsets.symmetric(vertical: 20),
+                      //   width: double.infinity,
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       foregroundColor: AppColors.white,
+                      //       backgroundColor: AppColors.tileColor,
+                      //       padding: const EdgeInsets.symmetric(
+                      //         horizontal: 25,
+                      //         vertical: 20,
+                      //       ),
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(15),
+                      //       ),
+                      //     ),
+                      //     onPressed: () {},
+                      //     child: const Text('Request'),
+                      //   ),
+                      // ),
+                      CustomElButton(text: 'Request', onPressed: (){})
                     ],
                   ),
                 ),
@@ -104,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const LoginPage()));
                   },
                   child: const Text('If you already have an account LOGIN.'),
-                )
+                ),
               ],
             ),
           ),

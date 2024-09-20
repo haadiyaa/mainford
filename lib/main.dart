@@ -15,16 +15,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        textTheme: Typography.whiteCupertino.apply(fontFamily: 'Poppins'),
-        scaffoldBackgroundColor: AppColors.bgColor,
-        appBarTheme: const AppBarTheme(
-          toolbarTextStyle: MyTextStyles.appBartextSmall,
-          backgroundColor: AppColors.bgColor,
-          titleTextStyle: MyTextStyles.appBartext
-        )
-      ),
-      home:const HomePage(),
+          fontFamily: 'Poppins',
+          textTheme: Typography.whiteCupertino.apply(fontFamily: 'Poppins'),
+          scaffoldBackgroundColor: AppColors.bgColor,
+          appBarTheme: const AppBarTheme(
+            toolbarTextStyle: MyTextStyles.appBartextSmall,
+            backgroundColor: AppColors.bgColor,
+            titleTextStyle: MyTextStyles.appBartext,
+            iconTheme: IconThemeData(
+              color: AppColors.white,
+            ),
+          )),
+      home: const HomePage(),
     );
   }
 }

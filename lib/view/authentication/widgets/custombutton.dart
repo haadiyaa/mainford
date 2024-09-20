@@ -4,7 +4,7 @@ import 'package:main_ford/resources/appcolors.dart';
 
 class CustomElButton extends StatelessWidget {
   const CustomElButton({
-    super.key, required this.text, this.onPressed,
+    super.key, required this.text,required this.onPressed,
   });
 
   final String text;
