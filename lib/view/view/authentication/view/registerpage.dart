@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/authentication/view/loginpage.dart';
-import 'package:main_ford/view/authentication/widgets/custombutton.dart';
-import 'package:main_ford/view/authentication/widgets/customtextfield.dart';
+import 'package:main_ford/view/bloc/bloc/auth_bloc.dart';
+import 'package:main_ford/view/view/authentication/view/loginpage.dart';
+import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
+import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+
+class RegisterPageWrapper extends StatelessWidget {
+  const RegisterPageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: const RegisterPage(),
+    );
+  }
+}
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -19,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,48 +80,31 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: emailController,
                       ),
                       CustomTextField(
-                        text: 'Date of Birth',
-                        controller: dateController,
-                        keyboardType: TextInputType.none,
-                        onTap: () async {
-                          final DateTime? picked=await showDatePicker(context: context, firstDate: DateTime(1990), lastDate: DateTime.now());
-                          if (picked!=null) {
-                            
-                          }
-                        },
-                      ),
-                      CustomTextField(
                         keyboardType: TextInputType.phone,
                         text: 'Phone Number',
                         controller: phoneController,
                       ),
-                      // Container(
-                      //   margin: const EdgeInsets.symmetric(vertical: 20),
-                      //   width: double.infinity,
-                      //   child: ElevatedButton(
-                      //     style: ElevatedButton.styleFrom(
-                      //       foregroundColor: AppColors.white,
-                      //       backgroundColor: AppColors.tileColor,
-                      //       padding: const EdgeInsets.symmetric(
-                      //         horizontal: 25,
-                      //         vertical: 20,
-                      //       ),
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(15),
-                      //       ),
-                      //     ),
-                      //     onPressed: () {},
-                      //     child: const Text('Request'),
-                      //   ),
-                      // ),
-                      CustomElButton(text: 'Request', onPressed: (){})
+                      CustomTextField(
+                        text: 'Date of Birth',
+                        controller: dateController,
+                        keyboardType: TextInputType.none,
+                        onTap: () async {
+                          await pickDate();
+                        },
+                      ),
+                      CustomTextField(
+                        keyboardType: TextInputType.name,
+                        text: 'Referal code',
+                        controller: codeController,
+                      ),
+                      CustomElButton(text: 'Request', onPressed: () {})
                     ],
                   ),
                 ),
-
                 GestureDetector(
-                  onTap: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const LoginPage()));
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()));
                   },
                   child: const Text('If you already have an account LOGIN.'),
                 ),
@@ -117,6 +116,21 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Future<void> pickDate() async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        firstDate: DateTime(1990),
+        lastDate: DateTime.now(),
+        initialDate: DateTime.now());
+    if (picked != null) {
+      DateTime pickedDate = picked;
+      String formatDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      setState(() {
+        dateController.text = formatDate;
+      });
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -124,5 +138,6 @@ class _RegisterPageState extends State<RegisterPage> {
     nameController.dispose();
     dateController.dispose();
     phoneController.dispose();
+    codeController.dispose();
   }
 }

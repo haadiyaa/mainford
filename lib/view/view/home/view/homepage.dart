@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/home/widgets/customcurousel.dart';
-import 'package:main_ford/view/home/widgets/mydrawer.dart';
+import 'package:main_ford/view/view/home/widgets/customcurousel.dart';
+import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

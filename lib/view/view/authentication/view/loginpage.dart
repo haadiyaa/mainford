@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/authentication/view/registerpage.dart';
-import 'package:main_ford/view/authentication/widgets/custombutton.dart';
-import 'package:main_ford/view/authentication/widgets/customtextfield.dart';
+import 'package:main_ford/view/view/authentication/view/registerpage.dart';
+import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
+import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginPage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const RegisterPage()));
+                      MaterialPageRoute(builder: (_) => const RegisterPageWrapper()));
                 },
                 child: const Text(
                     "If you don’t have an account, request to Login here."),

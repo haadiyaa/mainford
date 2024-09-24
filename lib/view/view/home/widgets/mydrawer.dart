@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
-import 'package:main_ford/view/authentication/view/loginpage.dart';
-import 'package:main_ford/view/home/view/homepage.dart';
-import 'package:main_ford/view/home/widgets/customlisttile.dart';
-import 'package:main_ford/view/profile/view/profilepage.dart';
+import 'package:main_ford/view/view/authentication/view/loginpage.dart';
+import 'package:main_ford/view/view/home/view/homepage.dart';
+import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
+import 'package:main_ford/view/view/profile/view/profilepage.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
