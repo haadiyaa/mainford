@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
@@ -35,6 +38,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
+  final key = GlobalKey<FormState>();
+  File? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Constants.height10,
                 Form(
+                  key: key,
                   child: Column(
                     children: [
                       CustomTextField(
@@ -97,6 +103,38 @@ class _RegisterPageState extends State<RegisterPage> {
                         text: 'Referal code',
                         controller: codeController,
                       ),
+                      Constants.height10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: ()async{
+                             await  getImage();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColors.drawerColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Text('Upload Screenshot'),
+                            ),
+                          ),
+                          Constants.width10,
+                          Container(
+                            height: 50,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.yellow,
+                            ),
+                            child: selectedImage != null
+                                ? Image.file(selectedImage!, fit: BoxFit.cover)
+                                : const Center(
+                                    child: Text("Please Get the Image")),
+                          ),
+                        ],
+                      ),
                       CustomElButton(text: 'Request', onPressed: () {})
                     ],
                   ),
@@ -114,6 +152,17 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        selectedImage = File(image.path);
+      });
+    }
   }
 
   Future<void> pickDate() async {
@@ -139,5 +188,17 @@ class _RegisterPageState extends State<RegisterPage> {
     dateController.dispose();
     phoneController.dispose();
     codeController.dispose();
+  }
+
+  Future<void> _getImage(BuildContext context) async {
+    if (selectedImage != null) {
+      var imageFile = selectedImage;
+      /*var image = imageLib.decodeImage(imageFile.readAsBytesSync());
+      fileName = basename(imageFile.path);
+      image = imageLib.copyResize(image,
+          width: (MediaQuery.of(context).size.width * 0.8).toInt(),
+          height: (MediaQuery.of(context).size.height * 0.7).toInt());
+      _image = image;*/
+    }
   }
 }
