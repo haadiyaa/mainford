@@ -1,29 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:main_ford/controller/authprovider.dart';
+import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
+import 'package:main_ford/resources/appvalidators.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/bloc/bloc/auth_bloc.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
+import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-
-class RegisterPageWrapper extends StatelessWidget {
-  const RegisterPageWrapper({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(),
-      child: const RegisterPage(),
-    );
-  }
-}
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -39,10 +31,16 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
   final key = GlobalKey<FormState>();
+  final AppValidators appValidators = AppValidators();
   File? selectedImage;
+  String? imageValidation;
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final functionProvider =
+        Provider.of<FunctionsProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.transparent),
       body: Padding(
@@ -79,18 +77,30 @@ class _RegisterPageState extends State<RegisterPage> {
                         keyboardType: TextInputType.name,
                         text: 'Name',
                         controller: nameController,
+                        validator: (value) {
+                          return appValidators.nameValidator(value: value);
+                        },
                       ),
                       CustomTextField(
+                        validator: (value) {
+                          return appValidators.emailValidator(value: value);
+                        },
                         keyboardType: TextInputType.emailAddress,
                         text: 'Email',
                         controller: emailController,
                       ),
                       CustomTextField(
+                        validator: (value) {
+                          return appValidators.phoneValidator(value: value);
+                        },
                         keyboardType: TextInputType.phone,
                         text: 'Phone Number',
                         controller: phoneController,
                       ),
                       CustomTextField(
+                        validator: (value) {
+                          return appValidators.dobValidator(value: value);
+                        },
                         text: 'Date of Birth',
                         controller: dateController,
                         keyboardType: TextInputType.none,
@@ -99,43 +109,131 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       CustomTextField(
+                        validator: (value) {
+                          return appValidators.referralValidator(value: value);
+                        },
                         keyboardType: TextInputType.name,
                         text: 'Referal code',
                         controller: codeController,
                       ),
                       Constants.height10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GestureDetector(
-                            onTap: ()async{
-                             await  getImage();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: AppColors.drawerColor,
-                                borderRadius: BorderRadius.circular(10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  await getImage();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.drawerColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Text('Upload Screenshot'),
+                                ),
                               ),
-                              child: const Text('Upload Screenshot'),
-                            ),
+                              Constants.width10,
+                              selectedImage != null
+                                  ? Row(
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                          width: 45,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: selectedImage != null
+                                              ? Image.file(selectedImage!,
+                                                  fit: BoxFit.cover)
+                                              : null,
+                                        ),
+                                        ElevatedButton.icon(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  AppColors.transparent),
+                                          onPressed: () {
+                                            print('object');
+                                            setState(() {
+                                              selectedImage = null;
+                                            });
+                                          },
+                                          label: const Icon(
+                                            Icons.cancel_outlined,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                            ],
                           ),
-                          Constants.width10,
-                          Container(
-                            height: 50,
-                            width: 45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.yellow,
-                            ),
-                            child: selectedImage != null
-                                ? Image.file(selectedImage!, fit: BoxFit.cover)
-                                : const Center(
-                                    child: Text("Please Get the Image")),
-                          ),
+                          imageValidation != null
+                              ? Text(imageValidation!,
+                                  style: const TextStyle(
+                                      color: AppColors.red, fontSize: 10))
+                              : const SizedBox(
+                                  height: 10,
+                                ),
                         ],
                       ),
-                      CustomElButton(text: 'Request', onPressed: () {})
+                      CustomElButton(
+                        text: 'Request',
+                        onPressed: () async {
+                          if (key.currentState!.validate()) {
+                            FocusScope.of(context).unfocus();
+                            if (selectedImage == null) {
+                              setState(() {
+                                imageValidation = appValidators.imageValidator(
+                                    value: selectedImage);
+                              });
+                            } else {
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.loading,
+                                text: "Please wait",
+                              );
+                              await authProvider
+                                  .registerUser(
+                                file: selectedImage!,
+                                filename: selectedImage!.path.split('/').last,
+                                name: nameController.text.trim(),
+                                phone: phoneController.text.trim(),
+                                email: emailController.text.trim(),
+                                dob: dateController.text.trim(),
+                                refer: codeController.text.trim(),
+                              )
+                                  .then(
+                                (value) {
+                                  Navigator.pop(context);
+                                  if (authProvider.status == Status.requested) {
+                                    QuickAlert.show(
+                                        confirmBtnColor: AppColors.bgColor,
+                                        context: context,
+                                        type: QuickAlertType.success,
+                                        text: 'Request Successful!');
+                                  }
+                                  if (authProvider.status ==
+                                      Status.requestFailed) {
+                                    QuickAlert.show(
+                                      confirmBtnColor: AppColors.bgColor,
+                                      context: context,
+                                      type: QuickAlertType.error,
+                                      text: authProvider.msg,
+                                      onCancelBtnTap: () {
+                                        
+                                      },
+                                    );
+                                  }
+                                },
+                              );
+                            }
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -157,9 +255,9 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> getImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
     if (image != null) {
       setState(() {
+        imageValidation = null;
         selectedImage = File(image.path);
       });
     }
@@ -188,17 +286,5 @@ class _RegisterPageState extends State<RegisterPage> {
     dateController.dispose();
     phoneController.dispose();
     codeController.dispose();
-  }
-
-  Future<void> _getImage(BuildContext context) async {
-    if (selectedImage != null) {
-      var imageFile = selectedImage;
-      /*var image = imageLib.decodeImage(imageFile.readAsBytesSync());
-      fileName = basename(imageFile.path);
-      image = imageLib.copyResize(image,
-          width: (MediaQuery.of(context).size.width * 0.8).toInt(),
-          height: (MediaQuery.of(context).size.height * 0.7).toInt());
-      _image = image;*/
-    }
   }
 }

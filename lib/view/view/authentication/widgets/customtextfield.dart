@@ -18,6 +18,8 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical:8.0),
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        textInputAction: TextInputAction.next,
         onTap: onTap,
         keyboardType: keyboardType,
         controller: controller,
