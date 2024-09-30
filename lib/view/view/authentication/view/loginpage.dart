@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
 import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.transparent),
       body: Padding(
@@ -61,18 +65,39 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passController,
                       text: 'Password',
                     ),
-                    CustomElButton(text: 'LOGIN',onPressed: (){},)
+                    CustomElButton(
+                      text: 'LOGIN',
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),
               Constants.height10,
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const RegisterPage()));
+                  if (authProvider.requested == null) {
+                    print(null);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const RegisterPage()));
+                  } else {
+                    if (authProvider.requested!) {
+                      print(true);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const RegisterPage()));
+                    } else {
+                      print(false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const AdminApprovePage()));
+                    }
+                  }
                 },
-                child: const Text(
-                    "If you don’t have an account, request to Login here."),
+                child: const Text("If you don’t have an account, request to Login here."),
               ),
             ],
           ),
@@ -80,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
   @override
   void dispose() {
     super.dispose();

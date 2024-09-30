@@ -44,6 +44,8 @@ dependencies:
   http: ^1.2.2
   http_parser: ^4.0.2
   quickalert: ^1.1.0
+  shared_preferences: ^2.3.2
+  another_flutter_splash_screen: ^1.2.1
 
 dev_dependencies:
   flutter_test:

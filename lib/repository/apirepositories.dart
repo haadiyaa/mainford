@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:main_ford/resources/secrets.dart';  // Adjust this import as necessary
+import 'package:main_ford/resources/constants.dart';
+import 'package:main_ford/resources/secrets.dart'; // Adjust this import as necessary
 
 class ApiRepositories {
   Future<http.Response> registeRequest({
@@ -17,9 +18,9 @@ class ApiRepositories {
       'POST',
       Uri.parse("${Secrets.baseUrl}${Secrets.registerUser}"),
     );
-    
+
     // Map<String, String> headers = {"Content-type": "multipart/form-data"};
-    
+
     request.files.add(
       http.MultipartFile(
         'screenshot',
@@ -29,9 +30,9 @@ class ApiRepositories {
         contentType: MediaType('image', 'png'),
       ),
     );
-    
+
     // request.headers.addAll(headers);
-    
+
     request.fields.addAll({
       "name": name,
       "email": email,
@@ -39,16 +40,25 @@ class ApiRepositories {
       "dob": dob,
       "referredBy": refer,
     });
-    
+
     print("Sending request...");
-    
+
     var streamedResponse = await request.send();
-    
+
     var response = await http.Response.fromStream(streamedResponse);
-    
+
     print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
 
+    return response;
+  }
+
+  Future<http.Response> getUser({required String token}) async {
+    final headers = {"Authorization": "Bearer $token",};
+    final response = await http.get(
+        Uri.parse('${Secrets.baseUrl}${Secrets.getUser}'),
+        headers: headers);
+    print('response-getuser : ${response.body}');
     return response;
   }
 }

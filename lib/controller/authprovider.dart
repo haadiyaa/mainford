@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:main_ford/model/getusermodel.dart';
 import 'package:main_ford/repository/apirepositories.dart';
+import 'package:main_ford/resources/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Status {
   loading,
@@ -16,6 +19,7 @@ enum Status {
 class AuthProvider extends ChangeNotifier {
   Status status = Status.initial;
   String msg = '';
+  bool? requested ;
   final ApiRepositories apiRepositories = ApiRepositories();
   Future<void> registerUser({
     required File file,
@@ -26,7 +30,8 @@ class AuthProvider extends ChangeNotifier {
     required String dob,
     required String refer,
   }) async {
-    
+    var sharedPref = await SharedPreferences.getInstance();
+
     status = Status.loading;
     notifyListeners();
     print('loading');
@@ -43,8 +48,12 @@ class AuthProvider extends ChangeNotifier {
       final data = jsonDecode(response.body);
       if (response.statusCode == 201) {
         print('success');
+        print('token : ${data['token']}');
         status = Status.requested;
         notifyListeners();
+        await sharedPref.setString(
+            Constants.regToken, data['token'].toString());
+        await sharedPref.setBool(Constants.isRegistered, true);
       } else {
         print('error');
         status = Status.requestFailed;
@@ -56,6 +65,38 @@ class AuthProvider extends ChangeNotifier {
       print(e.toString());
       status = Status.requestFailed;
       msg = e.toString();
+      notifyListeners();
+    }
+  }
+
+  void checkStatus() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    final token = sharedPref.getString(Constants.regToken);
+    final isRegistered = sharedPref.getBool(Constants.isRegistered) ?? false;
+    GetUserModel getUserModel;
+    if (token != null && isRegistered) {
+      // notifyListeners();
+      try {
+        final response = await apiRepositories.getUser(token: token);
+        final data = jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          getUserModel = GetUserModel.fromJson(data);
+          print('success');
+          if (getUserModel.adminApproved==true) {
+            requested=true;
+            notifyListeners();
+          } else {
+            requested=false;
+            notifyListeners();
+          }
+        } else {
+          print('error getuser');
+        }
+      } catch (e) {
+        print('exception : ${e.toString()}');
+      }
+    } else {
+      requested = false;
       notifyListeners();
     }
   }

@@ -5,6 +5,7 @@ import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
+import 'package:main_ford/view/view/refer/view/referpage.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
@@ -49,8 +50,12 @@ class MyDrawer extends StatelessWidget {
                       MaterialPageRoute(builder: (_) => const ProfilePage()));
                 },
               ),
-              const CustomListTile(
+              CustomListTile(
                 text: 'Refer and Earn',
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (_) => const ReferPage()));
+                },
               ),
               const CustomListTile(
                 text: 'Transaction History',

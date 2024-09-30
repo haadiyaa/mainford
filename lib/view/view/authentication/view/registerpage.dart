@@ -9,6 +9,7 @@ import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/appvalidators.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
@@ -214,7 +215,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                         confirmBtnColor: AppColors.bgColor,
                                         context: context,
                                         type: QuickAlertType.success,
-                                        text: 'Request Successful!');
+                                        text: 'Request Successful!',
+                                        onConfirmBtnTap: () {
+                                          Navigator.pop(context);
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      const AdminApprovePage()));
+                                        });
                                   }
                                   if (authProvider.status ==
                                       Status.requestFailed) {
@@ -223,9 +232,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                       context: context,
                                       type: QuickAlertType.error,
                                       text: authProvider.msg,
-                                      onCancelBtnTap: () {
-                                        
-                                      },
                                     );
                                   }
                                 },
