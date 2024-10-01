@@ -23,19 +23,39 @@ class ReferPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: funProvider.referralModel != null
-              ? ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  itemCount: funProvider.referralModel!.referrals.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final list = funProvider.referralModel!.referrals;
-                    return Text(list[index].name);
-                  },
-                )
+              ? funProvider.referralModel!.referrals.isEmpty
+                  ? const Center(
+                      child: Text('No Refferals!'),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      itemCount: funProvider.referralModel!.referrals.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final list = funProvider.referralModel!.referrals;
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: AppColors.drawerColor,
+                          ),
+                          child: Text(list[index].name),
+                        );
+                      },
+                    )
               : ListView.builder(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
-                    return const Text('list[index].name');
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: AppColors.drawerColor,
+                      ),
+                      child: const Text('list[index].name'),
+                    );
                   },
                 ),
         ),
