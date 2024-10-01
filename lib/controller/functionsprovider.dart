@@ -1,38 +1,35 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:main_ford/resources/appvalidators.dart';
+import 'package:main_ford/model/referralmodel.dart';
+import 'package:main_ford/repository/apirepositories.dart';
+import 'package:main_ford/resources/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FunctionsProvider extends ChangeNotifier {
-  String? imageValidation;
-  File? selectedImage;
-  final AppValidators appValidators = AppValidators();
+  final ApiRepositories apiRepositories = ApiRepositories();
+  ReferralModel? referralModel;
 
-  void getImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> getReferal() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    String? token = sharedPref.getString(Constants.regToken);
 
-    if (image != null) {
-      imageValidation = null;
-      selectedImage = File(image.path);
-      notifyListeners();
+    try {
+      if (token != null) {
+        final response = await apiRepositories.getReferrals(token: token);
+        final data = jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          referralModel = ReferralModel.fromJson(data);
+          notifyListeners();
+          print('refferrals: ${referralModel!.referrals}');
+        } else {
+          print('referal error');
+        }
+      } else {
+        print('referal token null');
+      }
+    } catch (e) {
+      print('exception-referal : ${e.toString()}');
     }
-  }
-
-  void setImage(File file) {
-    imageValidation = null;
-    selectedImage = File(file.path);
-    notifyListeners();
-  }
-
-  void removeImage() {
-    selectedImage = null;
-    notifyListeners();
-  }
-
-  void validateImage(File file) {
-    imageValidation = appValidators.imageValidator(value: file);
-    notifyListeners();
   }
 }
