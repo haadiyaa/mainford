@@ -19,7 +19,8 @@ enum Status {
 class AuthProvider extends ChangeNotifier {
   Status status = Status.initial;
   String msg = '';
-  bool? requested ;
+  bool? requested;
+  bool? requestedAccepted;
   final ApiRepositories apiRepositories = ApiRepositories();
   Future<void> registerUser({
     required File file,
@@ -31,7 +32,6 @@ class AuthProvider extends ChangeNotifier {
     required String refer,
   }) async {
     var sharedPref = await SharedPreferences.getInstance();
-
     status = Status.loading;
     notifyListeners();
     print('loading');
@@ -69,24 +69,24 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  void checkStatus() async {
+  Future<void> checkStatus() async {
     var sharedPref = await SharedPreferences.getInstance();
     final token = sharedPref.getString(Constants.regToken);
     final isRegistered = sharedPref.getBool(Constants.isRegistered) ?? false;
     GetUserModel getUserModel;
     if (token != null && isRegistered) {
-      // notifyListeners();
+      print('token: $token');
       try {
         final response = await apiRepositories.getUser(token: token);
         final data = jsonDecode(response.body);
         if (response.statusCode == 200) {
           getUserModel = GetUserModel.fromJson(data);
           print('success');
-          if (getUserModel.adminApproved==true) {
-            requested=true;
+          if (getUserModel.adminApproved == true) {
+            requested = true;
             notifyListeners();
           } else {
-            requested=false;
+            requested = false;
             notifyListeners();
           }
         } else {
@@ -96,7 +96,7 @@ class AuthProvider extends ChangeNotifier {
         print('exception : ${e.toString()}');
       }
     } else {
-      requested = false;
+      requested = null;
       notifyListeners();
     }
   }

@@ -7,6 +7,7 @@ import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
 import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
+import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const RegisterPage()));
+                              builder: (_) => const HomePage()));
                     } else {
                       print(false);
                       Navigator.push(
