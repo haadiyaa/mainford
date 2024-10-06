@@ -59,6 +59,17 @@ class ApiRepositories {
     return response;
   }
 
+  Future<http.Response> checkStatus({required String token}) async {
+    final headers = {
+      "Authorization": "Bearer $token",
+    };
+    final response = await http.get(
+      Uri.parse('${Secrets.baseUrl}${Secrets.checkAdminApprove}'),
+      headers: headers,
+    );
+    return response;
+  }
+
   Future<http.Response> getReferrals({required String token}) async {
     final headers = {
       "Authorization": "Bearer $token",
@@ -68,5 +79,27 @@ class ApiRepositories {
       headers: headers,
     );
     return response;
+  }
+
+  Future<http.Response> youtubeKey({required String token,})async{
+    final headers = {
+      "Authorization": "Bearer $token",
+    };
+    final response = await http.get(
+      Uri.parse("${Secrets.baseUrl}${Secrets.configKeys}"),
+      headers: headers,
+    );
+    return response;
+  }
+
+  Future<http.Response> playlist1({required String apikey,required String playlistId}) async {
+     String key='&key=$apikey';
+    final response1 = await http.get(
+        Uri.parse(
+            '${Secrets.youtubePlaylistUrl}${Secrets.part}${Secrets.playlistId}$playlistId$key'),
+        headers: {
+          "Accept": "application/json",
+        });
+    return response1;
   }
 }

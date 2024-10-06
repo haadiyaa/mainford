@@ -76,21 +76,21 @@ class _LoginPageState extends State<LoginPage> {
               Constants.height10,
               GestureDetector(
                 onTap: () {
-                  if (authProvider.requested == null) {
-                    print(null);
+                  if (authProvider.adminApproved == null) {
+                    print('adminapproved null');
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (_) => const RegisterPage()));
                   } else {
-                    if (authProvider.requested!) {
-                      print(true);
+                    if (authProvider.adminApproved!) {
+                      print('adminapproved true');
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (_) => const HomePage()));
                     } else {
-                      print(false);
+                      print('adminapproved false');
                       Navigator.push(
                           context,
                           MaterialPageRoute(

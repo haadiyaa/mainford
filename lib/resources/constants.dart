@@ -18,5 +18,6 @@ class Constants {
   //========================Shared preferences================
   static const String regToken="REG_TOKEN";
   static const String isRegistered="REGISTERED";
+  static const String adminApproved="approved";
 
 }

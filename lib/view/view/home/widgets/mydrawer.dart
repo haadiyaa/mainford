@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
+import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
@@ -64,7 +65,7 @@ class MyDrawer extends StatelessWidget {
                 text: 'Logout',
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const LoginPage()));
+                      MaterialPageRoute(builder: (_) => const RegisterPage()));
                 },
               ),
             ],

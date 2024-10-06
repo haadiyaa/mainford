@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:main_ford/model/getusermodel.dart';
 import 'package:main_ford/repository/apirepositories.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,9 +18,10 @@ enum Status {
 class AuthProvider extends ChangeNotifier {
   Status status = Status.initial;
   String msg = '';
-  bool? requested;
-  bool? requestedAccepted;
+  bool? adminApproved;
   final ApiRepositories apiRepositories = ApiRepositories();
+
+  
   Future<void> registerUser({
     required File file,
     required String filename,
@@ -44,16 +44,19 @@ class AuthProvider extends ChangeNotifier {
           email: email,
           dob: dob,
           refer: refer);
-      print(response.statusCode);
+      print('status ${response.statusCode}');
       final data = jsonDecode(response.body);
       if (response.statusCode == 201) {
         print('success');
         print('token : ${data['token']}');
         status = Status.requested;
+        adminApproved = false;
         notifyListeners();
         await sharedPref.setString(
             Constants.regToken, data['token'].toString());
-        await sharedPref.setBool(Constants.isRegistered, true);
+        if (adminApproved != null) {
+          await sharedPref.setBool(Constants.adminApproved, adminApproved!);
+        }
       } else {
         print('error');
         status = Status.requestFailed;
@@ -62,7 +65,7 @@ class AuthProvider extends ChangeNotifier {
       }
       print('completed');
     } catch (e) {
-      print(e.toString());
+      print('exception ${e.toString()}');
       status = Status.requestFailed;
       msg = e.toString();
       notifyListeners();
@@ -72,32 +75,48 @@ class AuthProvider extends ChangeNotifier {
   Future<void> checkStatus() async {
     var sharedPref = await SharedPreferences.getInstance();
     final token = sharedPref.getString(Constants.regToken);
-    final isRegistered = sharedPref.getBool(Constants.isRegistered) ?? false;
-    GetUserModel getUserModel;
-    if (token != null && isRegistered) {
-      print('token: $token');
+    final approval = sharedPref.getBool(Constants.adminApproved);
+    if (token != null) {
+      print('tokennnn: $token');
+
       try {
-        final response = await apiRepositories.getUser(token: token);
+        final response = await apiRepositories.checkStatus(token: token);
         final data = jsonDecode(response.body);
+        print('data: $data');
         if (response.statusCode == 200) {
-          getUserModel = GetUserModel.fromJson(data);
-          print('success');
-          if (getUserModel.adminApproved == true) {
-            requested = true;
+          if (data['isApproved'] == true) {
+            adminApproved = true;
             notifyListeners();
+            sharedPref.setBool(Constants.adminApproved, adminApproved!);
           } else {
-            requested = false;
+            adminApproved = false;
             notifyListeners();
+            sharedPref.setBool(Constants.adminApproved, adminApproved!);
           }
         } else {
-          print('error getuser');
+          adminApproved = false;
+          notifyListeners();
+          sharedPref.setBool(Constants.adminApproved, adminApproved!);
         }
       } catch (e) {
-        print('exception : ${e.toString()}');
+        print('exception checking approval ${e.toString()}');
+        adminApproved = false;
+        notifyListeners();
+        sharedPref.setBool(Constants.adminApproved, adminApproved!);
       }
     } else {
-      requested = null;
-      notifyListeners();
+      // requested = null;
+      // notifyListeners();
+      print('token null : $token');
+      // adminApproved = false;
+      // notifyListeners();
+      // sharedPref.setBool(Constants.adminApproved, adminApproved!);
     }
   }
+
+  Future<void> logout()async{
+    final sharedPref=await SharedPreferences.getInstance();
+    sharedPref.clear();
+  }
+
 }

@@ -23,12 +23,12 @@ class _AdminApprovePageState extends State<AdminApprovePage> {
         foregroundColor: AppColors.white,
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Please wait until you get admin approval!',
                 style: MyTextStyles.appBartext,
               ),
@@ -37,25 +37,21 @@ class _AdminApprovePageState extends State<AdminApprovePage> {
                 onPressed: () {
                   authProvider.checkStatus().then(
                     (value) {
-                      if (authProvider!.requested == null) {
-                        print(null);
+                      if (authProvider!.adminApproved == null) {
+                        print('adminapproved ${null}');
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const RegisterPage()));
                       } else {
-                        if (authProvider!.requested!) {
-                          print(true);
+                        if (authProvider!.adminApproved!) {
+                          print(' adminapproved ${true}');
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (_) => const HomePage()));
                         } else {
-                          print(false);
-                          // Navigator.pushrep(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (_) => const AdminApprovePage()));
+                          print('adminapproved ${false}');
                         }
                       }
                     },

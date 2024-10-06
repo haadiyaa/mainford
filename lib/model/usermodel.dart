@@ -1,14 +1,14 @@
 // To parse this JSON data, do
 //
-//     final getUserModel = getUserModelFromJson(jsonString);
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetUserModel getUserModelFromJson(String str) => GetUserModel.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String getUserModelToJson(GetUserModel data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
-class GetUserModel {
+class UserModel {
     String name;
     String email;
     String phone;
@@ -18,8 +18,9 @@ class GetUserModel {
     bool adminApproved;
     String photoUrl;
     ReferredBy referredBy;
+    List<Course> courses;
 
-    GetUserModel({
+    UserModel({
         required this.name,
         required this.email,
         required this.phone,
@@ -29,9 +30,10 @@ class GetUserModel {
         required this.adminApproved,
         required this.photoUrl,
         required this.referredBy,
+        required this.courses,
     });
 
-    factory GetUserModel.fromJson(Map<String, dynamic> json) => GetUserModel(
+    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
@@ -41,6 +43,7 @@ class GetUserModel {
         adminApproved: json["adminApproved"],
         photoUrl: json["photoUrl"],
         referredBy: ReferredBy.fromJson(json["referredBy"]),
+        courses: List<Course>.from(json["courses"].map((x) => Course.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -53,6 +56,35 @@ class GetUserModel {
         "adminApproved": adminApproved,
         "photoUrl": photoUrl,
         "referredBy": referredBy.toJson(),
+        "courses": List<dynamic>.from(courses.map((x) => x.toJson())),
+    };
+}
+
+class Course {
+    String id;
+    String url1;
+    String url2;
+    String url3;
+
+    Course({
+        required this.id,
+        required this.url1,
+        required this.url2,
+        required this.url3,
+    });
+
+    factory Course.fromJson(Map<String, dynamic> json) => Course(
+        id: json["_id"],
+        url1: json["url1"],
+        url2: json["url2"],
+        url3: json["url3"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "url1": url1,
+        "url2": url2,
+        "url3": url3,
     };
 }
 

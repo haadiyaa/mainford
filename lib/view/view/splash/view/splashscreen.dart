@@ -31,19 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Text('splash'),
         ),
         onAnimationEnd: () {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (_) => const HomePage()));
-          if (authProvider!.requested == null) {
-            print(null);
+          if (authProvider.adminApproved == null) {
+            print('adminapproved splash null');
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (_) => const RegisterPage()));
           } else {
-            if (authProvider!.requested!) {
-              print(true);
+            if (authProvider.adminApproved!) {
+              print('adminapproved splash true');
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => const HomePage()));
             } else {
-              print(false);
+              print('adminapproved splash false');
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const AdminApprovePage()));
             }

@@ -46,6 +46,8 @@ dependencies:
   quickalert: ^1.1.0
   shared_preferences: ^2.3.2
   another_flutter_splash_screen: ^1.2.1
+  youtube_player_flutter: ^9.1.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
