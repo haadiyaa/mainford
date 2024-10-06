@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
@@ -46,13 +47,6 @@ class ProfilePage extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            // Constants.height10,
-                            // Text(
-                            //   'Refarral Code : ${value.userModel!.referralCode}',
-                            //   style: MyTextStyles.drawerText,
-                            //   maxLines: 1,
-                            //   overflow: TextOverflow.ellipsis,
-                            // ),
                           ],
                         ),
                       ),
@@ -94,26 +88,69 @@ class ProfilePage extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: AppColors.tileColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'My Referral Code',
+                              'Persona Details',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 187, 155, 206)),
                             ),
-                            Text(value.userModel!.referralCode),
+                            Constants.height5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Phone',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 224, 198, 240)),
+                                ),
+                                Text(value.userModel!.phone),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Date of Birth',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 224, 198, 240)),
+                                ),
+                                Text(DateFormat('dd/MM/yyyy').format(value.userModel!.dob)),
+                              ],
+                            ),
                           ],
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.ios_share,
-                            color: AppColors.white,
-                          ),
+                        Constants.height10,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'My Referral Code',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 187, 155, 206)),
+                                ),
+                                Constants.height5,
+                                Text(value.userModel!.referralCode),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.ios_share,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -135,6 +172,7 @@ class ProfilePage extends StatelessWidget {
                           style: TextStyle(
                               color: Color.fromARGB(255, 187, 155, 206)),
                         ),
+                        Constants.height5,
                         Text(value.userModel!.referredBy.name.toUpperCase()),
                         Text(value.userModel!.referredBy.email),
                       ],
