@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -45,12 +46,12 @@ class _VideosPageState extends State<VideosPage> {
             Constants.height10,
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.text,),
+              child: Text(widget.text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
             ),
             const Divider(),
             Padding(
               padding: const EdgeInsets.all(10),
-              child:widget.date==null?null: Text('Published at : ${widget.date}'),
+              child:widget.date==null?null: Text('Published at : ${widget.date}',style: TextStyle(color: const Color.fromARGB(255, 170, 170, 170)),),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
