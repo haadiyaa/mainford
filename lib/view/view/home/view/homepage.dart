@@ -5,6 +5,7 @@ import 'package:main_ford/model/usermodel.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/view/home/view/videospage.dart';
 import 'package:main_ford/view/view/home/widgets/customcurousel.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/home/widgets/shimmervidoes.dart';
@@ -80,26 +81,61 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       scrollDirection: Axis.horizontal,
-                      itemCount: functionsProvider.playListModel1!.items!.length,
+                      itemCount:
+                          functionsProvider.playListModel1!.items!.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return Constants.width10;
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: size.height * 0.15,
-                          width: size.width * 0.3,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                YoutubePlayer.getThumbnail(
-                                    videoId: functionsProvider
-                                        .playListModel1!
-                                        .items![index]
-                                        .contentDetails!
-                                        .videoId!),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => VideosPage(
+                                          videoId: functionsProvider
+                                              .playListModel1!
+                                              .items![index]
+                                              .contentDetails!
+                                              .videoId!,
+                                          nextvideoId: functionsProvider
+                                              .playListModel1!
+                                              .items![index + 1]
+                                              .contentDetails!
+                                              .videoId!,
+                                          text: functionsProvider
+                                              .playListModel1!
+                                              .items![index]
+                                              .snippet!
+                                              .title!,
+                                          desc: functionsProvider
+                                              .playListModel1!
+                                              .items![index]
+                                              .snippet!
+                                              .description!,
+                                          date: functionsProvider
+                                              .playListModel1!
+                                              .items![index]
+                                              .snippet!
+                                              .publishedAt!,
+                                        )));
+                          },
+                          child: Container(
+                            height: size.height * 0.15,
+                            width: size.width * 0.3,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  YoutubePlayer.getThumbnail(
+                                      videoId: functionsProvider
+                                          .playListModel1!
+                                          .items![index]
+                                          .contentDetails!
+                                          .videoId!),
+                                ),
                               ),
                             ),
                           ),
@@ -127,26 +163,61 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       scrollDirection: Axis.horizontal,
-                      itemCount: functionsProvider.playListModel2!.items!.length,
+                      itemCount:
+                          functionsProvider.playListModel2!.items!.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return Constants.width10;
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: size.height * 0.15,
-                          width: size.width * 0.3,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                YoutubePlayer.getThumbnail(
-                                    videoId: functionsProvider
-                                        .playListModel2!
-                                        .items![index]
-                                        .contentDetails!
-                                        .videoId!),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => VideosPage(
+                                          videoId: functionsProvider
+                                              .playListModel2!
+                                              .items![index]
+                                              .contentDetails!
+                                              .videoId!,
+                                          nextvideoId: functionsProvider
+                                              .playListModel2!
+                                              .items![index + 1]
+                                              .contentDetails!
+                                              .videoId!,
+                                          text: functionsProvider
+                                              .playListModel2!
+                                              .items![index]
+                                              .snippet!
+                                              .title!,
+                                          desc: functionsProvider
+                                              .playListModel2!
+                                              .items![index]
+                                              .snippet!
+                                              .description!,
+                                          date: functionsProvider
+                                              .playListModel2!
+                                              .items![index]
+                                              .snippet!
+                                              .publishedAt!,
+                                        )));
+                          },
+                          child: Container(
+                            height: size.height * 0.15,
+                            width: size.width * 0.3,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  YoutubePlayer.getThumbnail(
+                                      videoId: functionsProvider
+                                          .playListModel2!
+                                          .items![index]
+                                          .contentDetails!
+                                          .videoId!),
+                                ),
                               ),
                             ),
                           ),
@@ -174,26 +245,61 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       scrollDirection: Axis.horizontal,
-                      itemCount: functionsProvider.playListModel3!.items!.length,
+                      itemCount:
+                          functionsProvider.playListModel3!.items!.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return Constants.width10;
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: size.height * 0.15,
-                          width: size.width * 0.3,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                YoutubePlayer.getThumbnail(
-                                    videoId: functionsProvider
-                                        .playListModel3!
-                                        .items![index]
-                                        .contentDetails!
-                                        .videoId!),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => VideosPage(
+                                          videoId: functionsProvider
+                                              .playListModel3!
+                                              .items![index]
+                                              .contentDetails!
+                                              .videoId!,
+                                          nextvideoId: functionsProvider
+                                              .playListModel3!
+                                              .items![index + 1]
+                                              .contentDetails!
+                                              .videoId!,
+                                          text: functionsProvider
+                                              .playListModel3!
+                                              .items![index]
+                                              .snippet!
+                                              .title!,
+                                          desc: functionsProvider
+                                              .playListModel3!
+                                              .items![index]
+                                              .snippet!
+                                              .description!,
+                                          date: functionsProvider
+                                              .playListModel3!
+                                              .items![index]
+                                              .snippet!
+                                              .publishedAt!,
+                                        )));
+                          },
+                          child: Container(
+                            height: size.height * 0.15,
+                            width: size.width * 0.3,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  YoutubePlayer.getThumbnail(
+                                      videoId: functionsProvider
+                                          .playListModel3!
+                                          .items![index]
+                                          .contentDetails!
+                                          .videoId!),
+                                ),
                               ),
                             ),
                           ),

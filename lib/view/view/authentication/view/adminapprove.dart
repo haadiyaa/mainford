@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
+import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminApprovePage extends StatefulWidget {
   const AdminApprovePage({super.key});
@@ -36,15 +38,17 @@ class _AdminApprovePageState extends State<AdminApprovePage> {
                 text: "Retry",
                 onPressed: () {
                   authProvider.checkStatus().then(
-                    (value) {
-                      if (authProvider!.adminApproved == null) {
+                    (value) async{
+                      var sharedPref=await SharedPreferences.getInstance();
+                      bool? adminApproved=sharedPref.getBool(Constants.adminApproved);
+                      if (adminApproved == null) {
                         print('adminapproved ${null}');
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const RegisterPage()));
                       } else {
-                        if (authProvider!.adminApproved!) {
+                        if (adminApproved) {
                           print(' adminapproved ${true}');
                           Navigator.pushReplacement(
                               context,
