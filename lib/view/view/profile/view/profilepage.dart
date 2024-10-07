@@ -159,7 +159,6 @@ class ProfilePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
-                    // height: size.height*0.3,
                     width: size.width * 0.9,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
