@@ -52,7 +52,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
-                text: 'Refer and Earn',
+                text: 'Referrals',
                 onTap: () {
                   Navigator.pushReplacement(
                       context, MaterialPageRoute(builder: (_) => const ReferPage()));

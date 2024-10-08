@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
-import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/splash/view/splashscreen.dart';

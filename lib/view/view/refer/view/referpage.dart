@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
+import 'package:main_ford/resources/constants.dart';
+import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ReferPage extends StatelessWidget {
   const ReferPage({super.key});
@@ -15,7 +18,7 @@ class ReferPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: AppColors.white,
-        title: const Text('Refer and Earn'),
+        title: const Text('My Referrals'),
       ),
       drawer: const MyDrawer(),
       body: SizedBox(
@@ -27,7 +30,8 @@ class ReferPage extends StatelessWidget {
                   ? const Center(
                       child: Text('No Refferals!'),
                     )
-                  : ListView.builder(
+                  : ListView.separated(
+                      separatorBuilder: (context, index) => Constants.height5,
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       itemCount: funProvider.referralModel!.referrals.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -39,7 +43,16 @@ class ReferPage extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: AppColors.drawerColor,
                           ),
-                          child: Text(list[index].name),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                list[index].name,
+                                style: MyTextStyles.appBartextSmall,
+                              ),
+                              Text(list[index].email),
+                            ],
+                          ),
                         );
                       },
                     )
@@ -47,14 +60,19 @@ class ReferPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: AppColors.drawerColor,
+                    return Shimmer.fromColors(
+                      baseColor: AppColors.drawerColor,
+                      highlightColor: AppColors.inputFieldBorderColor,
+                      child: Container(
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: AppColors.drawerColor,
+                        ),
+                        child: const Text('list[index].name'),
                       ),
-                      child: const Text('list[index].name'),
                     );
                   },
                 ),

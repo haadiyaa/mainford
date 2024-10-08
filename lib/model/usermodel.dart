@@ -19,6 +19,7 @@ class UserModel {
     String photoUrl;
     ReferredBy referredBy;
     List<Course> courses;
+    List<String> images;
 
     UserModel({
         required this.name,
@@ -31,6 +32,7 @@ class UserModel {
         required this.photoUrl,
         required this.referredBy,
         required this.courses,
+        required this.images,
     });
 
     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -44,6 +46,7 @@ class UserModel {
         photoUrl: json["photoUrl"],
         referredBy: ReferredBy.fromJson(json["referredBy"]),
         courses: List<Course>.from(json["courses"].map((x) => Course.fromJson(x))),
+        images: List<String>.from(json["images"].map((x) => x)),
     );
 
     Map<String, dynamic> toJson() => {
@@ -57,6 +60,7 @@ class UserModel {
         "photoUrl": photoUrl,
         "referredBy": referredBy.toJson(),
         "courses": List<dynamic>.from(courses.map((x) => x.toJson())),
+        "images": List<dynamic>.from(images.map((x) => x)),
     };
 }
 

@@ -39,8 +39,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final functionProvider =
-        Provider.of<FunctionsProvider>(context, listen: false);
+    // final functionProvider =
+    //     Provider.of<FunctionsProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.transparent),

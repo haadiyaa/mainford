@@ -26,8 +26,8 @@ class ShimmerVideosWidget extends StatelessWidget {
         },
         itemBuilder: (BuildContext context, int index) {
           return Shimmer.fromColors(
-            baseColor: const Color.fromARGB(255, 207, 207, 207),
-            highlightColor: const Color.fromARGB(255, 233, 233, 233),
+             baseColor: AppColors.drawerColor,
+                highlightColor: AppColors.inputFieldBorderColor,
             child: Container(
               height: size.height * 0.15,
               width: size.width * 0.3,

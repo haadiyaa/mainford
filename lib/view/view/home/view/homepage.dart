@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, functionsProvider, child) {
                 if (functionsProvider.playListModel1 != null) {
                   return SizedBox(
-                    height: size.height * 0.15,
+                    height: size.height * 0.23,
                     width: size.width,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -90,53 +90,54 @@ class _HomePageState extends State<HomePage> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => VideosPage(
-                                          videoId: functionsProvider
-                                              .playListModel1!
-                                              .items![index]
-                                              .contentDetails!
-                                              .videoId!,
-                                          nextvideoId: functionsProvider
-                                              .playListModel1!
-                                              .items![index + 1]
-                                              .contentDetails!
-                                              .videoId!,
-                                          text: functionsProvider
-                                              .playListModel1!
-                                              .items![index]
-                                              .snippet!
-                                              .title!,
-                                          desc: functionsProvider
-                                              .playListModel1!
-                                              .items![index]
-                                              .snippet!
-                                              .description!,
-                                          date: functionsProvider
-                                              .playListModel1!
-                                              .items![index]
-                                              .snippet!
-                                              .publishedAt!,
-                                        )));
-                          },
-                          child: Container(
-                            height: size.height * 0.15,
-                            width: size.width * 0.3,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  YoutubePlayer.getThumbnail(
-                                      videoId: functionsProvider
-                                          .playListModel1!
-                                          .items![index]
-                                          .contentDetails!
-                                          .videoId!),
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => VideosPage(
+                                  videoId: functionsProvider.playListModel1!
+                                      .items![index].contentDetails!.videoId!,
+                                  nextvideoId: functionsProvider
+                                      .playListModel1!
+                                      .items![index + 1]
+                                      .contentDetails!
+                                      .videoId!,
+                                  text: functionsProvider.playListModel1!
+                                      .items![index].snippet!.title!,
+                                  desc: functionsProvider.playListModel1!
+                                      .items![index].snippet!.description!,
+                                  date: functionsProvider.playListModel1!
+                                      .items![index].snippet!.publishedAt!,
                                 ),
                               ),
+                            );
+                          },
+                          child: SizedBox(
+                            width: size.width * 0.4,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: size.height * 0.15,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        YoutubePlayer.getThumbnail(
+                                            videoId: functionsProvider
+                                                .playListModel1!
+                                                .items![index]
+                                                .contentDetails!
+                                                .videoId!),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                    functionsProvider.playListModel1!
+                                        .items![index].snippet!.title!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                              ],
                             ),
                           ),
                         );
@@ -146,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                 }
                 return ShimmerVideosWidget(size: size);
               }),
-              Constants.height10,
+              // Constants.height10,
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Text(
@@ -158,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, functionsProvider, child) {
                 if (functionsProvider.playListModel2 != null) {
                   return SizedBox(
-                    height: size.height * 0.15,
+                    height: size.height * 0.23,
                     width: size.width,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -202,23 +203,35 @@ class _HomePageState extends State<HomePage> {
                                               .publishedAt!,
                                         )));
                           },
-                          child: Container(
-                            height: size.height * 0.15,
-                            width: size.width * 0.3,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  YoutubePlayer.getThumbnail(
-                                      videoId: functionsProvider
-                                          .playListModel2!
-                                          .items![index]
-                                          .contentDetails!
-                                          .videoId!),
+                          child: SizedBox(
+                            width: size.width * 0.4,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: size.height * 0.15,
+                                  // width: size.width * 0.4,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        YoutubePlayer.getThumbnail(
+                                            videoId: functionsProvider
+                                                .playListModel2!
+                                                .items![index]
+                                                .contentDetails!
+                                                .videoId!),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Text(
+                                  functionsProvider.playListModel2!
+                                      .items![index].snippet!.title!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -228,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                 }
                 return ShimmerVideosWidget(size: size);
               }),
-              Constants.height10,
+              // Constants.height10,
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Text(
@@ -240,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, functionsProvider, child) {
                 if (functionsProvider.playListModel3 != null) {
                   return SizedBox(
-                    height: size.height * 0.15,
+                    height: size.height * 0.25,
                     width: size.width,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -254,53 +267,55 @@ class _HomePageState extends State<HomePage> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => VideosPage(
-                                          videoId: functionsProvider
-                                              .playListModel3!
-                                              .items![index]
-                                              .contentDetails!
-                                              .videoId!,
-                                          nextvideoId: functionsProvider
-                                              .playListModel3!
-                                              .items![index + 1]
-                                              .contentDetails!
-                                              .videoId!,
-                                          text: functionsProvider
-                                              .playListModel3!
-                                              .items![index]
-                                              .snippet!
-                                              .title!,
-                                          desc: functionsProvider
-                                              .playListModel3!
-                                              .items![index]
-                                              .snippet!
-                                              .description!,
-                                          date: functionsProvider
-                                              .playListModel3!
-                                              .items![index]
-                                              .snippet!
-                                              .publishedAt!,
-                                        )));
-                          },
-                          child: Container(
-                            height: size.height * 0.15,
-                            width: size.width * 0.3,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  YoutubePlayer.getThumbnail(
-                                      videoId: functionsProvider
-                                          .playListModel3!
-                                          .items![index]
-                                          .contentDetails!
-                                          .videoId!),
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => VideosPage(
+                                  videoId: functionsProvider.playListModel3!
+                                      .items![index].contentDetails!.videoId!,
+                                  nextvideoId: functionsProvider
+                                      .playListModel3!
+                                      .items![index + 1]
+                                      .contentDetails!
+                                      .videoId!,
+                                  text: functionsProvider.playListModel3!
+                                      .items![index].snippet!.title!,
+                                  desc: functionsProvider.playListModel3!
+                                      .items![index].snippet!.description!,
+                                  date: functionsProvider.playListModel3!
+                                      .items![index].snippet!.publishedAt!,
                                 ),
                               ),
+                            );
+                          },
+                          child: SizedBox(
+                             width: size.width * 0.4,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: size.height * 0.15,
+                                  // width: size.width * 0.4,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        YoutubePlayer.getThumbnail(
+                                            videoId: functionsProvider
+                                                .playListModel3!
+                                                .items![index]
+                                                .contentDetails!
+                                                .videoId!),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  functionsProvider.playListModel3!
+                                      .items![index].snippet!.title!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -310,6 +325,7 @@ class _HomePageState extends State<HomePage> {
                 }
                 return ShimmerVideosWidget(size: size);
               }),
+              // Constants.height15,
             ],
           ),
         ),
