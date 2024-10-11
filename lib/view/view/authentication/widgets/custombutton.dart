@@ -13,7 +13,7 @@ class CustomElButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

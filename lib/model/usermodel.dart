@@ -9,6 +9,7 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
+    String id;
     String name;
     String email;
     String phone;
@@ -19,9 +20,12 @@ class UserModel {
     String photoUrl;
     ReferredBy referredBy;
     List<Course> courses;
+    int balance;
     List<String> images;
+    AccountDetails accountDetails;
 
     UserModel({
+        required this.id,
         required this.name,
         required this.email,
         required this.phone,
@@ -32,10 +36,13 @@ class UserModel {
         required this.photoUrl,
         required this.referredBy,
         required this.courses,
+        required this.balance,
         required this.images,
+        required this.accountDetails,
     });
 
     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        id: json["_id"],
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
@@ -46,10 +53,13 @@ class UserModel {
         photoUrl: json["photoUrl"],
         referredBy: ReferredBy.fromJson(json["referredBy"]),
         courses: List<Course>.from(json["courses"].map((x) => Course.fromJson(x))),
+        balance: json["balance"],
         images: List<String>.from(json["images"].map((x) => x)),
+        accountDetails: AccountDetails.fromJson(json["accountDetails"]),
     );
 
     Map<String, dynamic> toJson() => {
+        "_id": id,
         "name": name,
         "email": email,
         "phone": phone,
@@ -60,7 +70,33 @@ class UserModel {
         "photoUrl": photoUrl,
         "referredBy": referredBy.toJson(),
         "courses": List<dynamic>.from(courses.map((x) => x.toJson())),
+        "balance": balance,
         "images": List<dynamic>.from(images.map((x) => x)),
+        "accountDetails": accountDetails.toJson(),
+    };
+}
+
+class AccountDetails {
+    String accountNumber;
+    String ifsc;
+    String holderName;
+
+    AccountDetails({
+        required this.accountNumber,
+        required this.ifsc,
+        required this.holderName,
+    });
+
+    factory AccountDetails.fromJson(Map<String, dynamic> json) => AccountDetails(
+        accountNumber: json["accountNumber"],
+        ifsc: json["ifsc"],
+        holderName: json["holderName"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "accountNumber": accountNumber,
+        "ifsc": ifsc,
+        "holderName": holderName,
     };
 }
 

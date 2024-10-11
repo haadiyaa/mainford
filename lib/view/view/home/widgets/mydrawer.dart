@@ -50,7 +50,7 @@ class MyDrawer extends StatelessWidget {
                 text: 'Profile',
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const ProfilePage()));
+                      MaterialPageRoute(builder: (_) => ProfilePage()));
                 },
               ),
               CustomListTile(

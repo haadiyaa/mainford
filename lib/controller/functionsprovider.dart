@@ -114,4 +114,23 @@ class FunctionsProvider extends ChangeNotifier {
       print('token null');
     }
   }
+
+  Future<void> updateUser(String name,String accNum,String ifsc,String holder)async{
+    final sharedPref = await SharedPreferences.getInstance();
+    final token = sharedPref.getString(Constants.regToken);
+    if (token!=null) {
+      print('token not null');
+      final response= await apiRepositories.updateUser(token: token,name: name,accNum: accNum,ifsc: ifsc,holder: holder);
+      final data=jsonDecode(response.body);
+      if (response.statusCode==200) {
+        print('updated');
+        userModel=UserModel.fromJson(data);
+        notifyListeners();
+      } else {
+        print(response.statusCode);
+      }
+    } else {
+      print('token null');
+    }
+  }
 }

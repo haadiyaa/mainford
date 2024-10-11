@@ -72,4 +72,34 @@ class AppValidators {
       return null;
     }
   }
+
+  String? accNumValidator({required String? value}) {
+    RegExp accountNumberRegExp = RegExp(r'^\d{9,18}$');
+    if (value == null) {
+      return 'Enter the Account Number';
+    } else if (!accountNumberRegExp.hasMatch(value)) {
+      return 'Enter a valid Account Number';
+    }
+    return null;
+  }
+
+  String? ifscValidator({required String? value}) {
+    RegExp ifscRegExp = RegExp(r'^[A-Z]{4}0[A-Z0-9]{6}$');
+    if (value == null) {
+      return 'Enter the Account Number';
+    } else if (!ifscRegExp.hasMatch(value)) {
+      return 'Enter a valid code';
+    }
+    return null;
+  }
+
+  String? holderValidator({required String? value}) {
+    RegExp nameRegExp = RegExp(r"^[a-zA-Z ]{3,50}$");
+    if (value == null) {
+      return 'Enter the Account Number';
+    } else if (!nameRegExp.hasMatch(value)) {
+      return 'Enter a valid name';
+    }
+    return null;
+  }
 }
