@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
@@ -121,7 +122,8 @@ class ProfilePage extends StatelessWidget {
                                       color:
                                           Color.fromARGB(255, 224, 198, 240)),
                                 ),
-                                Text(DateFormat('dd/MM/yyyy').format(value.userModel!.dob)),
+                                Text(DateFormat('dd/MM/yyyy')
+                                    .format(value.userModel!.dob)),
                               ],
                             ),
                           ],
@@ -262,9 +264,15 @@ class ProfilePage extends StatelessWidget {
         child: CustomElButton(
           text: 'LOGOUT',
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const LoginPage()),
+            final authProvider =
+                Provider.of<AuthProvider>(context, listen: false);
+            authProvider.logout().then(
+              (value) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginPage()),
+                );
+              },
             );
           },
         ),

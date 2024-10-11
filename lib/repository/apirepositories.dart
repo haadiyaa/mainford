@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -48,6 +49,20 @@ class ApiRepositories {
     return response;
   }
 
+  Future<http.Response> login(
+      {required String email, required String password}) async {
+    final body = {
+      "email": email,
+      "password": password,
+    };
+    final response = await http.post(
+      Uri.parse('https://main-ford.vercel.app/api/users/login'),
+      body: jsonEncode(body),
+      headers: {"Content-Type": "application/json"},
+    );
+    return response;
+  }
+
   Future<http.Response> getUser({required String token}) async {
     final headers = {
       "Authorization": "Bearer $token",
@@ -81,7 +96,9 @@ class ApiRepositories {
     return response;
   }
 
-  Future<http.Response> youtubeKey({required String token,})async{
+  Future<http.Response> youtubeKey({
+    required String token,
+  }) async {
     final headers = {
       "Authorization": "Bearer $token",
     };
@@ -92,8 +109,9 @@ class ApiRepositories {
     return response;
   }
 
-  Future<http.Response> playlist1({required String apikey,required String playlistId}) async {
-     String key='&key=$apikey';
+  Future<http.Response> playlist1(
+      {required String apikey, required String playlistId}) async {
+    String key = '&key=$apikey';
     final response1 = await http.get(
         Uri.parse(
             '${Secrets.youtubePlaylistUrl}${Secrets.part}${Secrets.playlistId}$playlistId$key'),

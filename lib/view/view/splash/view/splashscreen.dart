@@ -4,6 +4,7 @@ import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
+import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (adminapprove == null) {
             print('adminapproved splash null');
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (_) => const RegisterPage()));
+                MaterialPageRoute(builder: (_) => const LoginPage()));
           } else {
             if (adminapprove) {
               print('adminapproved splash true');

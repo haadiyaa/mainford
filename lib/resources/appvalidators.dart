@@ -16,10 +16,14 @@ class AppValidators {
 
   String? emailValidator({required String? value}) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    } else {
-      return null;
+      return "Email is required";
     }
+    final emailReg =
+        RegExp(r"^[a-zA-Z0-9_\-\.\S]{4,}[@][a-z]+[\.][a-z]{2,3}[\s]*$");
+    if (!emailReg.hasMatch(value)) {
+      return 'Invalid email address!';
+    }
+    return null;
   }
 
   String? phoneValidator({required String? value}) {
@@ -38,6 +42,16 @@ class AppValidators {
   String? dobValidator({required String? value}) {
     if (value == null || value.isEmpty) {
       return 'Please enter your date of birth';
+    } else {
+      return null;
+    }
+  }
+
+  String? passwordValidator({required String? value}) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the password';
+    } else if (value.length < 6) {
+      return 'Please enter atleast 6 characters';
     } else {
       return null;
     }

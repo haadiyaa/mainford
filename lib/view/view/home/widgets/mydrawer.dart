@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
@@ -7,6 +8,7 @@ import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
@@ -54,8 +56,8 @@ class MyDrawer extends StatelessWidget {
               CustomListTile(
                 text: 'Referrals',
                 onTap: () {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => const ReferPage()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const ReferPage()));
                 },
               ),
               const CustomListTile(
@@ -64,8 +66,16 @@ class MyDrawer extends StatelessWidget {
               CustomListTile(
                 text: 'Logout',
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const RegisterPage()));
+                  final authProvider =
+                      Provider.of<AuthProvider>(context, listen: false);
+                  authProvider.logout().then(
+                    (value) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                      );
+                    },
+                  );
                 },
               ),
             ],

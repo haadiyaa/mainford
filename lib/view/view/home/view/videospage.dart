@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/resources/constants.dart';
+import 'package:screen_protector/screen_protector.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideosPage extends StatefulWidget {
-  const VideosPage({super.key, required this.videoId, this.nextvideoId, required this.text, required this.desc, this.date});
+  const VideosPage(
+      {super.key,
+      required this.videoId,
+      this.nextvideoId,
+      required this.text,
+      required this.desc,
+      this.date});
   final String videoId;
   final String? nextvideoId;
-  final String text;                                                                                          
-  final String desc;                                                                                          
-  final String? date;                                                                                          
+  final String text;
+  final String desc;
+  final String? date;
 
   @override
   State<VideosPage> createState() => _VideosPageState();
@@ -21,6 +28,13 @@ class _VideosPageState extends State<VideosPage> {
       autoPlay: true,
     ),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    avoidScreenShot();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.videoId);
@@ -33,11 +47,10 @@ class _VideosPageState extends State<VideosPage> {
             YoutubePlayer(
               controller: _controller,
               onEnded: (metaData) {
-                if (widget.nextvideoId!=null) {
+                if (widget.nextvideoId != null) {
                   _controller.load(widget.nextvideoId!);
                   _controller.play();
-                }
-                else{
+                } else {
                   _controller.pause();
                 }
               },
@@ -45,16 +58,28 @@ class _VideosPageState extends State<VideosPage> {
             Constants.height10,
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+              child: Text(
+                widget.text,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
             const Divider(),
             Padding(
               padding: const EdgeInsets.all(10),
-              child:widget.date==null?null: Text('Published at : ${widget.date}',style: TextStyle(color: const Color.fromARGB(255, 170, 170, 170)),),
+              child: widget.date == null
+                  ? null
+                  : Text(
+                      'Published at : ${widget.date}',
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 170, 170, 170)),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.desc,),
+              child: Text(
+                widget.desc,
+              ),
             ),
           ],
         ),
@@ -66,5 +91,9 @@ class _VideosPageState extends State<VideosPage> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  avoidScreenShot() async {
+    await ScreenProtector.protectDataLeakageOn();
   }
 }

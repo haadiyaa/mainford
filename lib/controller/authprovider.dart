@@ -21,7 +21,41 @@ class AuthProvider extends ChangeNotifier {
   bool? adminApproved;
   final ApiRepositories apiRepositories = ApiRepositories();
 
-  
+  Future<void> loginUser(
+      {required String email, required String password}) async {
+    var sharedPref = await SharedPreferences.getInstance();
+    status = Status.loading;
+    notifyListeners();
+    try {
+      final response =
+          await apiRepositories.login(email: email, password: password);
+      final data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        status = Status.login;
+        adminApproved = true;
+        notifyListeners();
+        await sharedPref.setString(
+            Constants.regToken, data['token'].toString());
+        print('login success token : ${data['token']}');
+        if (adminApproved != null) {
+          await sharedPref.setBool(Constants.adminApproved, adminApproved!);
+        }
+      } else {
+        print('login error');
+        status = Status.loginFailed;
+        msg = data['message'];
+        print(msg);
+        notifyListeners();
+      }
+    } catch (e) {
+      print('exception ${e.toString()}');
+      status = Status.loginFailed;
+      msg = e.toString();
+      print(msg);
+      notifyListeners();
+    }
+  }
+
   Future<void> registerUser({
     required File file,
     required String filename,
@@ -114,9 +148,8 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> logout()async{
-    final sharedPref=await SharedPreferences.getInstance();
+  Future<void> logout() async {
+    final sharedPref = await SharedPreferences.getInstance();
     sharedPref.clear();
   }
-
 }
