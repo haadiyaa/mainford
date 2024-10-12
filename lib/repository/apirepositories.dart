@@ -121,19 +121,36 @@ class ApiRepositories {
     return response1;
   }
 
-  Future<http.Response> updateUser({required String token,required String name,required String accNum,required String ifsc,required String holder}) async {
+  Future<http.Response> updateUser(
+      {required String token,
+      required String name,
+      required String accNum,
+      required String ifsc,
+      required String holder}) async {
     final body = {
-      "name":name,
-      "accountDetails":{
-        "accountNumber":accNum,
-        "ifsc":ifsc,
-        "holderName":holder,
+      "name": name,
+      "accountDetails": {
+        "accountNumber": accNum,
+        "ifsc": ifsc,
+        "holderName": holder,
       },
     };
-    final headers={"Content-Type":"application/json","Authorization":"Bearer $token"};
+    final headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    };
     final response = await http.put(
       Uri.parse('${Secrets.baseUrl}${Secrets.updateUser}'),
       body: jsonEncode(body),
+      headers: headers,
+    );
+    return response;
+  }
+
+  Future<http.Response> payementData({required String token}) async {
+    final headers = {"Authorization": "Bearer $token"};
+    final response = await http.get(
+      Uri.parse('${Secrets.baseUrl}${Secrets.payementData}'),
       headers: headers,
     );
     return response;

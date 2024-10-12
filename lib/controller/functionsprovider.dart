@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:main_ford/model/playlistmodel.dart';
 import 'package:main_ford/model/referralmodel.dart';
 import 'package:main_ford/model/usermodel.dart';
+import 'package:main_ford/model/userpayementmodel.dart';
 import 'package:main_ford/repository/apirepositories.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +14,7 @@ class FunctionsProvider extends ChangeNotifier {
   ReferralModel? referralModel;
   UserModel? userModel;
   String? youtubeKey;
+  UserPayementModel? userPayementModel;
   PlayListModel? playListModel1;
   PlayListModel? playListModel2;
   PlayListModel? playListModel3;
@@ -100,7 +101,9 @@ class FunctionsProvider extends ChangeNotifier {
           print('playlist1 $data1');
           print('playlist2 $data2');
           print('playlist3 $data3');
-          if (response1.statusCode == 200&&response2.statusCode==200&&response3.statusCode==200) {
+          if (response1.statusCode == 200 &&
+              response2.statusCode == 200 &&
+              response3.statusCode == 200) {
             playListModel1 = PlayListModel.fromJson(data1);
             playListModel2 = PlayListModel.fromJson(data2);
             playListModel3 = PlayListModel.fromJson(data3);
@@ -115,22 +118,47 @@ class FunctionsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateUser(String name,String accNum,String ifsc,String holder)async{
+  Future<void> updateUser(
+      String name, String accNum, String ifsc, String holder) async {
     final sharedPref = await SharedPreferences.getInstance();
     final token = sharedPref.getString(Constants.regToken);
-    if (token!=null) {
+    if (token != null) {
       print('token not null');
-      final response= await apiRepositories.updateUser(token: token,name: name,accNum: accNum,ifsc: ifsc,holder: holder);
-      final data=jsonDecode(response.body);
-      if (response.statusCode==200) {
+      final response = await apiRepositories.updateUser(
+          token: token, name: name, accNum: accNum, ifsc: ifsc, holder: holder);
+      final data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
         print('updated');
-        userModel=UserModel.fromJson(data);
+        userModel = UserModel.fromJson(data);
         notifyListeners();
       } else {
         print(response.statusCode);
       }
     } else {
       print('token null');
+    }
+  }
+
+  Future<void> getPayementData() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    final token = sharedPref.getString(Constants.regToken);
+    if (token != null) {
+      try {
+        final response = await apiRepositories.payementData(token: token);
+        final data=jsonDecode(response.body);
+        if (response.statusCode==200) {
+          print('payement details success');
+          userPayementModel=UserPayementModel.fromJson(data);
+          notifyListeners();
+          print('balance: ${userPayementModel!.balance}');
+        } else {
+          print('not success ${response.statusCode}');
+        }
+      } catch (e) {
+        print('exception ${e.toString()}');
+      }
+    } else {
+      print('token nulll');
     }
   }
 }

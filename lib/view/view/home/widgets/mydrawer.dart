@@ -8,6 +8,7 @@ import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
+import 'package:main_ford/view/view/transactions/view/transactions.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -60,8 +61,14 @@ class MyDrawer extends StatelessWidget {
                       MaterialPageRoute(builder: (_) => const ReferPage()));
                 },
               ),
-              const CustomListTile(
-                text: 'Transaction History',
+              CustomListTile(
+                text: 'Transactions',
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const TransactionsPage()));
+                },
               ),
               CustomListTile(
                 text: 'Logout',

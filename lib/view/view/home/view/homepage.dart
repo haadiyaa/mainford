@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
-import 'package:main_ford/model/playlistmodel.dart';
-import 'package:main_ford/model/usermodel.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
@@ -20,8 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // late UserModel user;
-  // PlayListModel? playListModel;
   @override
   void initState() {
     super.initState();
@@ -32,6 +28,7 @@ class _HomePageState extends State<HomePage> {
         functionsProvider.youtube(functionsProvider.userModel!.courses);
       },
     );
+    functionsProvider.getPayementData();
   }
 
   @override

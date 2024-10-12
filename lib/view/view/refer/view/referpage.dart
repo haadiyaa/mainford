@@ -56,7 +56,8 @@ class ReferPage extends StatelessWidget {
                         );
                       },
                     )
-              : ListView.builder(
+              : ListView.separated(
+                separatorBuilder: (context, index) => Constants.height5,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
