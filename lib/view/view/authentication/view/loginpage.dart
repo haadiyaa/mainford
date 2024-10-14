@@ -98,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'LOGIN',
                       onPressed: () {
                         if (key.currentState!.validate()) {
+                          FocusScope.of(context).unfocus();
                           QuickAlert.show(
                             context: context,
                             type: QuickAlertType.loading,
@@ -115,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                                     confirmBtnColor: AppColors.bgColor,
                                     context: context,
                                     type: QuickAlertType.success,
-                                    autoCloseDuration: Duration(seconds: 3),
                                     text: 'Login Successful!',
                                     onConfirmBtnTap: () {
                                       Navigator.pop(context);

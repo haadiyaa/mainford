@@ -10,6 +10,8 @@ import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
 import 'package:main_ford/view/view/transactions/view/transactions.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
@@ -75,12 +77,25 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   final authProvider =
                       Provider.of<AuthProvider>(context, listen: false);
-                  authProvider.logout().then(
-                    (value) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.confirm,
+                    text: "Are you sure you want to logout?",
+                    onConfirmBtnTap: () {
+                      authProvider.logout().then(
+                        (value) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginPage()),
+                          );
+                        },
                       );
+                    },
+                    onCancelBtnTap: () {
+                      Navigator.pop(context);
                     },
                   );
                 },

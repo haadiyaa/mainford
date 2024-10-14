@@ -168,14 +168,14 @@ class FunctionsProvider extends ChangeNotifier {
     final token = sharedPref.getString(Constants.regToken);
     if (token != null) {
       try {
-        final response =
-            await apiRepositories.requestWithdraw(token: token, amount: amount);
+        final response = await apiRepositories.requestWithdraw(token: token, amount: amount);
         final data = jsonDecode(response.body);
         if (response.statusCode == 200) {
           message = data['message'];
           notifyListeners();
         } else {
           message = data['message'];
+          notifyListeners();
         }
       } catch (e) {
         message = e.toString();

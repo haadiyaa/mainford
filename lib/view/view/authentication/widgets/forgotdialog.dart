@@ -38,8 +38,8 @@ class ForgotPasswordDialog extends StatelessWidget {
             CustomElButton(
               text: 'Send',
               onPressed: () {
-                FocusScope.of(context).unfocus();
                 if (_key.currentState!.validate()) {
+                  FocusScope.of(context).unfocus();
                   final functionsProvider =
                       Provider.of<FunctionsProvider>(context, listen: false);
                   QuickAlert.show(
@@ -51,6 +51,7 @@ class ForgotPasswordDialog extends StatelessWidget {
                   );
                   functionsProvider.forgotPassword(email.text.trim()).then(
                     (value) {
+                      Navigator.pop(context);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(functionsProvider.message)));

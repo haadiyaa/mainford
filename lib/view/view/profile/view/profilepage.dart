@@ -12,6 +12,8 @@ import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart'
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/profile/widgets/editdialog.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
@@ -242,7 +244,8 @@ class ProfilePage extends StatelessWidget {
                                           color: Color.fromARGB(
                                               255, 224, 198, 240)),
                                     ),
-                                    Text(value.userModel!.accountDetails.holderName),
+                                    Text(value
+                                        .userModel!.accountDetails.holderName),
                                   ],
                                 ),
                               ],
@@ -253,7 +256,7 @@ class ProfilePage extends StatelessWidget {
                     CustomElButton(
                       text: 'Update Profile',
                       onPressed: () {
-                        final val=value.userModel!;
+                        final val = value.userModel!;
                         showDialog(
                           context: context,
                           builder: (context) => EditDialog(
@@ -270,13 +273,25 @@ class ProfilePage extends StatelessWidget {
                       onPressed: () {
                         final authProvider =
                             Provider.of<AuthProvider>(context, listen: false);
-                        authProvider.logout().then(
-                          (value) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const LoginPage()),
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.confirm,
+                          text: "Are you sure you want to logout?",
+                          onConfirmBtnTap: () {
+                            authProvider.logout().then(
+                              (value) {
+                                Navigator.pop(context);
+                                // Navigator.pop(context);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const LoginPage()),
+                                );
+                              },
                             );
+                          },
+                          onCancelBtnTap: () {
+                            Navigator.pop(context);
                           },
                         );
                       },

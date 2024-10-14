@@ -46,9 +46,11 @@ class PayoutDialog extends StatelessWidget {
               text: 'Send Request',
               onPressed: () {
                 if (_key.currentState!.validate()) {
+                  // amount.clear();
+                  // Navigator.pop(context);
+                  FocusScope.of(context).unfocus();
                   QuickAlert.show(
                     confirmBtnColor: AppColors.bgColor,
-                    // autoCloseDuration: const Duration(seconds: 3),
                     context: context,
                     type: QuickAlertType.loading,
                     text: 'Please wait',
@@ -56,10 +58,12 @@ class PayoutDialog extends StatelessWidget {
                   functionsProvider.requestWithdraw(amount.text.trim()).then(
                     (value) {
                       Navigator.pop(context);
+                      Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(functionsProvider.message)));
                     },
                   );
+
                 }
               },
             ),
