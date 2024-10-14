@@ -17,8 +17,8 @@ class CustomElButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          foregroundColor: AppColors.white,
-          backgroundColor: AppColors.tileColor,
+          foregroundColor: AppColors.bgColor,
+          backgroundColor: const Color.fromARGB(255, 223, 193, 102),
           padding: const EdgeInsets.symmetric(
             horizontal: 25,
             vertical: 20,

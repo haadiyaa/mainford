@@ -155,4 +155,26 @@ class ApiRepositories {
     );
     return response;
   }
+
+  Future<http.Response> requestWithdraw({required String token,required String amount}) async {
+    final headers = {"Authorization": "Bearer $token"};
+    final body={"amount":amount};
+    final response = await http.post(
+      Uri.parse('${Secrets.baseUrl}${Secrets.payementData}'),
+      body: body,
+      headers: headers,
+    );
+    return response;
+  }
+
+  Future<http.Response> forgotPass({required String email}) async {
+    final body={"email":email};
+    final headers={"Content-Type":"application/json"};
+    final response = await http.post(
+      Uri.parse('${Secrets.baseUrl}${Secrets.restPass}'),
+      body: jsonEncode(body),
+      headers: headers,
+    );
+    return response;
+  }
 }

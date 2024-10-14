@@ -18,6 +18,7 @@ class FunctionsProvider extends ChangeNotifier {
   PlayListModel? playListModel1;
   PlayListModel? playListModel2;
   PlayListModel? playListModel3;
+  String message = '';
   Future<void> getReferal() async {
     var sharedPref = await SharedPreferences.getInstance();
     String? token = sharedPref.getString(Constants.regToken);
@@ -145,10 +146,10 @@ class FunctionsProvider extends ChangeNotifier {
     if (token != null) {
       try {
         final response = await apiRepositories.payementData(token: token);
-        final data=jsonDecode(response.body);
-        if (response.statusCode==200) {
+        final data = jsonDecode(response.body);
+        if (response.statusCode == 200) {
           print('payement details success');
-          userPayementModel=UserPayementModel.fromJson(data);
+          userPayementModel = UserPayementModel.fromJson(data);
           notifyListeners();
           print('balance: ${userPayementModel!.balance}');
         } else {
@@ -159,6 +160,48 @@ class FunctionsProvider extends ChangeNotifier {
       }
     } else {
       print('token nulll');
+    }
+  }
+
+  Future<void> requestWithdraw(String amount) async {
+    final sharedPref = await SharedPreferences.getInstance();
+    final token = sharedPref.getString(Constants.regToken);
+    if (token != null) {
+      try {
+        final response =
+            await apiRepositories.requestWithdraw(token: token, amount: amount);
+        final data = jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          message = data['message'];
+          notifyListeners();
+        } else {
+          message = data['message'];
+        }
+      } catch (e) {
+        message = e.toString();
+        notifyListeners();
+      }
+    } else {
+      print('token null');
+    }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      final response = await apiRepositories.forgotPass(email: email);
+      final data = jsonDecode(response.body);
+      print('forgot $data');
+      print('status ${response.statusCode}');
+      if (response.statusCode == 200) {
+        message = data['message'];
+        notifyListeners();
+      } else {
+        message = data['message'];
+        notifyListeners();
+      }
+    } catch (e) {
+      message = e.toString();
+      notifyListeners();
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
+import 'package:main_ford/view/view/transactions/widgets/payoutdialog.dart';
 import 'package:provider/provider.dart';
 
 class TransactionsPage extends StatelessWidget {
@@ -17,6 +18,26 @@ class TransactionsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transactions'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  foregroundColor: AppColors.white,
+                  backgroundColor: AppColors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => PayoutDialog(),
+                );
+              },
+              child: const Text('Withdraw'),
+            ),
+          ),
+        ],
       ),
       drawer: const MyDrawer(),
       body: Center(
@@ -172,19 +193,6 @@ class TransactionsPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-                    //     const Text(
-                    //       'Total Payements',
-                    //       style: MyTextStyles.appBartextSmall,
-                    //     ),
-                    //     Text(
-                    //       value.userPayementModel!.totalPayments.toString(),
-                    //       style: MyTextStyles.appBartextSmall,
-                    //     ),
-                    //   ],
-                    // ),
                   ),
                 ),
                 Constants.height20,

@@ -248,7 +248,21 @@ class _RegisterPageState extends State<RegisterPage> {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (_) => const LoginPage()));
                   },
-                  child: const Text('If you already have an account LOGIN.'),
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Already have an account? ",
+                        ),
+                        TextSpan(
+                          text: "Login.",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 223, 193, 102),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
