@@ -58,6 +58,7 @@ class _EditDialogState extends State<EditDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CustomTextField(
+                  obscureText: false,
                   text: 'Name',
                   controller: name,
                   validator: (value) {
@@ -80,6 +81,7 @@ class _EditDialogState extends State<EditDialog> {
                   ],
                 ),
                 CustomTextField(
+                  obscureText: false,
                   text: 'Account Number',
                   keyboardType: TextInputType.number,
                   controller: accNumber,
@@ -88,6 +90,7 @@ class _EditDialogState extends State<EditDialog> {
                   },
                 ),
                 CustomTextField(
+                  obscureText: false,
                   text: 'IFSC Code',
                   keyboardType: TextInputType.visiblePassword,
                   controller: ifsc,
@@ -96,6 +99,7 @@ class _EditDialogState extends State<EditDialog> {
                   },
                 ),
                 CustomTextField(
+                  obscureText: false,
                   text: 'Holder\'s Name',
                   controller: holder,
                   validator: (value) {

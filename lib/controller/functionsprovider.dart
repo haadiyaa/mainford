@@ -9,6 +9,7 @@ import 'package:main_ford/repository/apirepositories.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FunctionsProvider extends ChangeNotifier {
   final ApiRepositories apiRepositories = ApiRepositories();
@@ -20,6 +21,12 @@ class FunctionsProvider extends ChangeNotifier {
   PlayListModel? playListModel2;
   PlayListModel? playListModel3;
   String message = '';
+  bool isPasswordvisible = false;
+  void togglePassword() {
+    isPasswordvisible = !isPasswordvisible;
+    notifyListeners();
+  }
+
   Future<void> getReferal() async {
     var sharedPref = await SharedPreferences.getInstance();
     String? token = sharedPref.getString(Constants.regToken);
@@ -111,7 +118,9 @@ class FunctionsProvider extends ChangeNotifier {
             playListModel3 = PlayListModel.fromJson(data3);
             notifyListeners();
           }
-        } catch (e) {}
+        } catch (e) {
+          print(e.toString());
+        }
       } else {
         print('youtube key null: $youtubeKey');
       }
@@ -169,7 +178,8 @@ class FunctionsProvider extends ChangeNotifier {
     final token = sharedPref.getString(Constants.regToken);
     if (token != null) {
       try {
-        final response = await apiRepositories.requestWithdraw(token: token, amount: amount);
+        final response =
+            await apiRepositories.requestWithdraw(token: token, amount: amount);
         final data = jsonDecode(response.body);
         if (response.statusCode == 200) {
           message = data['message'];
@@ -185,6 +195,15 @@ class FunctionsProvider extends ChangeNotifier {
       }
     } else {
       print('token null');
+    }
+  }
+
+  void launchURLBrowser(String str) async {
+    var url = Uri.parse(str);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -207,8 +226,8 @@ class FunctionsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> shareReferralCode(String code)async{
-    await Share.share('\u{1F4B5} Earn Guaranteed Rewards! \u{1F4B5} Download the Main Ford app and enter my referral code $code for a guaranteed bonus. Complete the first referral task to unlock even more! Start earning now: https://play.google.com/store/apps/details?id=com.mainford.app');
+  Future<void> shareReferralCode(String code) async {
+    await Share.share(
+        '\u{1F4B5} Earn Guaranteed Rewards! \u{1F4B5} Download the Main Ford app and enter my referral code $code for a guaranteed bonus. Complete the first referral task to unlock even more! Start earning now: https://play.google.com/store/apps/details?id=com.mainford.app');
   }
-
 }

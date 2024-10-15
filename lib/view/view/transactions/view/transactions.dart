@@ -172,20 +172,25 @@ class TransactionsPage extends StatelessWidget {
                                     '$rupees ${value.userPayementModel!.payments[index].amount.toString()}'),
                                 subtitle: Text(value
                                     .userPayementModel!.payments[index].type),
-                                trailing: Text(
-                                  value.userPayementModel!.payments[index]
-                                      .status,
-                                  style: TextStyle(
-                                    color: value.userPayementModel!
-                                                .payments[index].status ==
-                                            'completed'
-                                        ? AppColors.green
-                                        : value.userPayementModel!
+                                trailing: Column(
+                                  children: [
+                                    Text(
+                                      value.userPayementModel!.payments[index]
+                                          .status,
+                                      style: TextStyle(
+                                        color: value.userPayementModel!
                                                     .payments[index].status ==
-                                                'rejected'
-                                            ? AppColors.red
-                                            : AppColors.yellow,
-                                  ),
+                                                'completed'
+                                            ? AppColors.green
+                                            : value.userPayementModel!
+                                                        .payments[index].status ==
+                                                    'rejected'
+                                                ? AppColors.red
+                                                : AppColors.yellow,
+                                      ),
+                                    ),
+                                    // Text(value.userPayementModel!.payments[index].)
+                                  ],
                                 ),
                               );
                             },

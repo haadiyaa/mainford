@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     CustomTextField(
+                      obscureText: false,
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
                       text: 'Email',
@@ -70,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                     CustomTextField(
+                      obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       controller: passController,
                       text: 'Password',

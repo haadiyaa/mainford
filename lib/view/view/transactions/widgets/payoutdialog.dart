@@ -29,6 +29,7 @@ class PayoutDialog extends StatelessWidget {
             const Text('Enter the amount to request withdrawal'),
             Constants.height5,
             CustomTextField(
+              obscureText: false,
               text: 'Amount',
               controller: amount,
               keyboardType: TextInputType.number,

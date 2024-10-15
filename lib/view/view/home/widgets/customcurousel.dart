@@ -30,6 +30,8 @@ class CustomCurousel extends StatelessWidget {
                 ),
               );
             },
+            viewportFraction: 0.8,
+            scale: 0.85,
           );
         } else {
           return Swiper(

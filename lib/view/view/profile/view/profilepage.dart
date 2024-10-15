@@ -9,6 +9,7 @@ import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/profile/widgets/editdialog.dart';
+import 'package:main_ford/view/view/profile/widgets/profileloaderwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -28,7 +29,9 @@ class ProfilePage extends StatelessWidget {
         builder: (context, value, child) {
           if (value.userModel != null) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+              ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -305,80 +308,7 @@ class ProfilePage extends StatelessWidget {
               ),
             );
           }
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Hadiya',
-                            style: MyTextStyles.headText,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            'haadiyact@gmail.com',
-                            style: MyTextStyles.subHeadText,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Constants.height10,
-                          Text(
-                            'Refaral Code : MFfrdee4ew2w41',
-                            style: MyTextStyles.drawerText,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          const CircleAvatar(
-                            radius: 40,
-                          ),
-                          Positioned(
-                            bottom: -3,
-                            right: 35,
-                            child: CircleAvatar(
-                              backgroundColor: AppColors.inputFieldBorderColor,
-                              radius: 12,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0),
-                                color: AppColors.white,
-                                onPressed: () {},
-                                icon: const Icon(Icons.add),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Constants.height20,
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  // height: size.height*0.3,
-                  width: size.width * 0.9,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.tileColor),
-                  child: const Text('swdwhbdwb'),
-                ),
-              ],
-            ),
-          );
+          return ProfileLoaderWidget(size: size);
         },
       ),
     );

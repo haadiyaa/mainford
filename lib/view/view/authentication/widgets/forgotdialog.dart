@@ -27,7 +27,7 @@ class ForgotPasswordDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text('Enter your Email id'),
-            CustomTextField(
+            CustomTextField(obscureText: false,
               text: 'Email',
               controller: email,
               keyboardType: TextInputType.emailAddress,

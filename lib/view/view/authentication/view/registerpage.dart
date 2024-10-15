@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -39,8 +41,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    // final functionProvider =
-    //     Provider.of<FunctionsProvider>(context, listen: false);
+    final functionProvider =
+        Provider.of<FunctionsProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.transparent),
@@ -75,6 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Column(
                     children: [
                       CustomTextField(
+                        obscureText: false,
                         keyboardType: TextInputType.name,
                         text: 'Name',
                         controller: nameController,
@@ -83,6 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       CustomTextField(
+                        obscureText: false,
                         validator: (value) {
                           return appValidators.emailValidator(value: value);
                         },
@@ -91,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: emailController,
                       ),
                       CustomTextField(
+                        obscureText: false,
                         validator: (value) {
                           return appValidators.phoneValidator(value: value);
                         },
@@ -99,6 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: phoneController,
                       ),
                       CustomTextField(
+                        obscureText: false,
                         validator: (value) {
                           return appValidators.dobValidator(value: value);
                         },
@@ -110,6 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                       CustomTextField(
+                        obscureText: false,
                         validator: (value) {
                           return appValidators.referralValidator(value: value);
                         },
@@ -158,7 +165,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                               backgroundColor:
                                                   AppColors.transparent),
                                           onPressed: () {
-                                            print('object');
                                             setState(() {
                                               selectedImage = null;
                                             });
@@ -243,6 +249,56 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
+                Constants.height5,
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text:
+                            "By registering in this app, you are accepting to our\n",
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
+                      ),
+                      TextSpan(
+                          text: "Privacy Policy ",
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 223, 193, 102),
+                            fontSize: 10,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              String privacy =
+                                  'https://github.com/MainFord/privacy_policy';
+                              functionProvider.launchURLBrowser(privacy);
+                            }),
+                      const TextSpan(
+                        text: "& ",
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
+                      ),
+                      TextSpan(
+                          text: "Terms and conditions.",
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 223, 193, 102),
+                            fontSize: 10,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              String terms =
+                                  'https://github.com/MainFord/terms_and_conditions';
+                              functionProvider.launchURLBrowser(terms);
+                            }),
+                    ],
+                  ),
+                ),
+                Constants.height15,
+                const Divider(
+                  thickness: 0.3,
+                ),
+                Constants.height15,
                 GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(context,
@@ -264,6 +320,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
+                Constants.height15,
               ],
             ),
           ),

@@ -34,12 +34,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final functionsProvider = Provider.of<FunctionsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        actions: const [
-          Text('100'),
-          IconButton(
+        actions: [
+          functionsProvider.userPayementModel != null
+              ? Text(functionsProvider.userPayementModel!.balance.toString())
+              : const Text('_ _'),
+          const IconButton(
             icon: Icon(
               Icons.monetization_on,
               color: AppColors.yellow,
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Text(
-                  'DSA Series',
+                  'Online Courses',
                   style: MyTextStyles.subHeadText,
                 ),
               ),
@@ -129,11 +132,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Text(
-                                    functionsProvider.playListModel1!
-                                        .items![index].snippet!.title!,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                  functionsProvider.playListModel1!
+                                      .items![index].snippet!.title!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
                             ),
                           ),
@@ -145,13 +148,13 @@ class _HomePageState extends State<HomePage> {
                 return ShimmerVideosWidget(size: size);
               }),
               // Constants.height10,
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                child: Text(
-                  'Digital Marketing',
-                  style: MyTextStyles.subHeadText,
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              //   child: Text(
+              //     'Digital Marketing',
+              //     style: MyTextStyles.subHeadText,
+              //   ),
+              // ),
               Consumer<FunctionsProvider>(
                   builder: (context, functionsProvider, child) {
                 if (functionsProvider.playListModel2 != null) {
@@ -239,13 +242,13 @@ class _HomePageState extends State<HomePage> {
                 return ShimmerVideosWidget(size: size);
               }),
               // Constants.height10,
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                child: Text(
-                  'MS Excel',
-                  style: MyTextStyles.subHeadText,
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              //   child: Text(
+              //     'MS Excel',
+              //     style: MyTextStyles.subHeadText,
+              //   ),
+              // ),
               Consumer<FunctionsProvider>(
                   builder: (context, functionsProvider, child) {
                 if (functionsProvider.playListModel3 != null) {
@@ -285,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           child: SizedBox(
-                             width: size.width * 0.4,
+                            width: size.width * 0.4,
                             child: Column(
                               children: [
                                 Container(
