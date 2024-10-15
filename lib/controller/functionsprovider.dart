@@ -7,6 +7,7 @@ import 'package:main_ford/model/usermodel.dart';
 import 'package:main_ford/model/userpayementmodel.dart';
 import 'package:main_ford/repository/apirepositories.dart';
 import 'package:main_ford/resources/constants.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FunctionsProvider extends ChangeNotifier {
@@ -178,6 +179,7 @@ class FunctionsProvider extends ChangeNotifier {
           notifyListeners();
         }
       } catch (e) {
+        print('exc:${e.toString()}');
         message = e.toString();
         notifyListeners();
       }
@@ -204,4 +206,9 @@ class FunctionsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> shareReferralCode(String code)async{
+    await Share.share('\u{1F4B5} Earn Guaranteed Rewards! \u{1F4B5} Download the Main Ford app and enter my referral code $code for a guaranteed bonus. Complete the first referral task to unlock even more! Start earning now: https://play.google.com/store/apps/details?id=com.mainford.app');
+  }
+
 }

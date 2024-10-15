@@ -3,12 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
-import 'package:main_ford/resources/appvalidators.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
-import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/profile/widgets/editdialog.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +14,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class ProfilePage extends StatelessWidget {
         builder: (context, value, child) {
           if (value.userModel != null) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25,),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -154,7 +152,13 @@ class ProfilePage extends StatelessWidget {
                                 ],
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  final functionsProvider =
+                                      Provider.of<FunctionsProvider>(context,
+                                          listen: false);
+                                  functionsProvider.shareReferralCode(
+                                      value.userModel!.referralCode);
+                                },
                                 icon: const Icon(
                                   Icons.ios_share,
                                   color: AppColors.white,
@@ -251,7 +255,7 @@ class ProfilePage extends StatelessWidget {
                               ],
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     Constants.height20,
                     CustomElButton(
                       text: 'Update Profile',

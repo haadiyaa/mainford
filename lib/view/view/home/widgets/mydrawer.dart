@@ -43,6 +43,7 @@ class MyDrawer extends StatelessWidget {
           Column(
             children: [
               CustomListTile(
+                icon: Icons.home,
                 text: 'Home',
                 onTap: () {
                   Navigator.pushReplacement(context,
@@ -50,6 +51,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
+                icon: Icons.person,
                 text: 'Profile',
                 onTap: () {
                   Navigator.pushReplacement(context,
@@ -57,6 +59,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
+                icon: Icons.group,
                 text: 'Referrals',
                 onTap: () {
                   Navigator.pushReplacement(context,
@@ -64,6 +67,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
+                icon: Icons.history,
                 text: 'Transactions',
                 onTap: () {
                   Navigator.pushReplacement(
@@ -73,6 +77,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
+                icon: Icons.logout,
                 text: 'Logout',
                 onTap: () {
                   final authProvider =

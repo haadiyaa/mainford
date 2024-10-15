@@ -162,10 +162,10 @@ class ApiRepositories {
       "Authorization": "Bearer $token",
       // "Content-Type": "application/json",
     };
-    final body = {"amount": amount};
+    final body = {"amount": int.parse(amount)};
     final response = await http.post(
       Uri.parse('${Secrets.baseUrl}${Secrets.withdrawRequest}'),
-      body: body,
+      body: jsonEncode(body),
       headers: headers,
     );
     return response;
