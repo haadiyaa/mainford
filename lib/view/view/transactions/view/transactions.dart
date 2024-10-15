@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
@@ -7,10 +8,23 @@ import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/transactions/widgets/payoutdialog.dart';
 import 'package:provider/provider.dart';
 
-class TransactionsPage extends StatelessWidget {
+class TransactionsPage extends StatefulWidget {
   const TransactionsPage({super.key});
 
+  @override
+  State<TransactionsPage> createState() => _TransactionsPageState();
+}
+
+class _TransactionsPageState extends State<TransactionsPage> {
   final String rupees = '\u{20B9}';
+
+  @override
+  void initState() {
+    super.initState();
+    final functionsProvider =
+        Provider.of<FunctionsProvider>(context, listen: false);
+    functionsProvider.getPayementData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,50 +165,63 @@ class TransactionsPage extends StatelessWidget {
                           style: MyTextStyles.appBartextSmall,
                         ),
                         Expanded(
-                          child:value.userPayementModel!.payments.length==0?Text('No transactions yet'): ListView.builder(
-                            padding: const EdgeInsets.only(top: 20),
-                            itemCount: value.userPayementModel!.payments.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                textColor: AppColors.white,
-                                leading: value.userPayementModel!
-                                            .payments[index].type ==
-                                        'withdrawal'
-                                    ? const Icon(
-                                        Icons.minimize,
-                                        color: AppColors.red,
-                                      )
-                                    : const Icon(
-                                        Icons.add,
-                                        color: AppColors.green,
+                          child: value.userPayementModel!.payments.length == 0
+                              ? Text('No transactions yet')
+                              : ListView.builder(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  itemCount:
+                                      value.userPayementModel!.payments.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ListTile(
+                                      textColor: AppColors.white,
+                                      leading: value.userPayementModel!
+                                                  .payments[index].type ==
+                                              'withdrawal'
+                                          ? const Icon(
+                                              Icons.arrow_upward,
+                                              color: AppColors.red,
+                                            )
+                                          : const Icon(
+                                              Icons.arrow_downward,
+                                              color: AppColors.green,
+                                            ),
+                                      title: Text(
+                                          '$rupees ${value.userPayementModel!.payments[index].amount.toString()}'),
+                                      subtitle: Text(value.userPayementModel!
+                                          .payments[index].type),
+                                      trailing: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            value.userPayementModel!
+                                                .payments[index].status,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: value
+                                                          .userPayementModel!
+                                                          .payments[index]
+                                                          .status ==
+                                                      'completed'
+                                                  ? AppColors.green
+                                                  : value
+                                                              .userPayementModel!
+                                                              .payments[index]
+                                                              .status ==
+                                                          'rejected'
+                                                      ? AppColors.red
+                                                      : AppColors.yellow,
+                                            ),
+                                          ),
+                                          Constants.height5,
+                                          Text(DateFormat('dd/MM/yyy').format(
+                                              value.userPayementModel!
+                                                  .payments[index].updatedAt))
+                                        ],
                                       ),
-                                title: Text(
-                                    '$rupees ${value.userPayementModel!.payments[index].amount.toString()}'),
-                                subtitle: Text(value
-                                    .userPayementModel!.payments[index].type),
-                                trailing: Column(
-                                  children: [
-                                    Text(
-                                      value.userPayementModel!.payments[index]
-                                          .status,
-                                      style: TextStyle(
-                                        color: value.userPayementModel!
-                                                    .payments[index].status ==
-                                                'completed'
-                                            ? AppColors.green
-                                            : value.userPayementModel!                                                                                                                                                      
-                                                        .payments[index].status ==
-                                                    'rejected'
-                                                ? AppColors.red
-                                                : AppColors.yellow,
-                                      ),
-                                    ),
-                                    // Text(value.userPayementModel!.payments[index].)
-                                  ],
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
                         ),
                       ],
                     ),

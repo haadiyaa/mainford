@@ -160,6 +160,7 @@ class ApiRepositories {
       {required String token, required String amount}) async {
     final headers = {
       "Authorization": "Bearer $token",
+      "Content-Type":"application/json",
     };
     final body = {"amount": int.parse(amount)};
     final response = await http.post(

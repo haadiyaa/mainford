@@ -60,9 +60,9 @@ class PayoutDialog extends StatelessWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(functionsProvider.message)));
+                      functionsProvider.getPayementData();
                     },
                   );
-
                 }
               },
             ),
