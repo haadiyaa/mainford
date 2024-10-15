@@ -59,28 +59,14 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: Stack(
+                          child: 
+                          Stack(
                             clipBehavior: Clip.none,
                             children: [
                               CircleAvatar(
                                 radius: 40,
                                 backgroundImage:
                                     NetworkImage(value.userModel!.photoUrl),
-                              ),
-                              Positioned(
-                                bottom: -3,
-                                right: 35,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      AppColors.inputFieldBorderColor,
-                                  radius: 12,
-                                  child: IconButton(
-                                    padding: const EdgeInsets.all(0),
-                                    color: AppColors.white,
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add),
-                                  ),
-                                ),
                               ),
                             ],
                           ),
@@ -91,7 +77,6 @@ class ProfilePage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
-                      // height: size.height*0.3,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),

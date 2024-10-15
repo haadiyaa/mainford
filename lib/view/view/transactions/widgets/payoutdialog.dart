@@ -47,8 +47,6 @@ class PayoutDialog extends StatelessWidget {
               text: 'Send Request',
               onPressed: () {
                 if (_key.currentState!.validate()) {
-                  // amount.clear();
-                  // Navigator.pop(context);
                   FocusScope.of(context).unfocus();
                   QuickAlert.show(
                     confirmBtnColor: AppColors.bgColor,

@@ -151,7 +151,7 @@ class TransactionsPage extends StatelessWidget {
                           style: MyTextStyles.appBartextSmall,
                         ),
                         Expanded(
-                          child: ListView.builder(
+                          child:value.userPayementModel!.payments.length==0?Text('No transactions yet'): ListView.builder(
                             padding: const EdgeInsets.only(top: 20),
                             itemCount: value.userPayementModel!.payments.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -182,7 +182,7 @@ class TransactionsPage extends StatelessWidget {
                                                     .payments[index].status ==
                                                 'completed'
                                             ? AppColors.green
-                                            : value.userPayementModel!
+                                            : value.userPayementModel!                                                                                                                                                      
                                                         .payments[index].status ==
                                                     'rejected'
                                                 ? AppColors.red

@@ -125,6 +125,34 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: codeController,
                       ),
                       Constants.height10,
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text:
+                                  "Please complete the payment of ",
+                              style: TextStyle(
+                                fontSize: 10,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "Rs. 350/- ",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 223, 193, 102),
+                                fontSize: 10,
+                              ),
+                            ),
+                            TextSpan(
+                              text:
+                                  "and upload the payment screenshot to proceed with your registration.",
+                              style: TextStyle(
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Constants.height15,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -221,7 +249,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         confirmBtnColor: AppColors.bgColor,
                                         context: context,
                                         type: QuickAlertType.success,
-                                        text: 'Request Successful!',
+                                        text: 'Request Successful! You can login after the admin approve your request.',
                                         onConfirmBtnTap: () {
                                           Navigator.pop(context);
                                           Navigator.pushReplacement(

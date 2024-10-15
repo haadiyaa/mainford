@@ -18,7 +18,7 @@ class ShimmerVideosWidget extends StatelessWidget {
       height: size.height * 0.15,
       width: size.width,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15,vertical:10),
         scrollDirection: Axis.horizontal,
         itemCount: 6,
         separatorBuilder: (BuildContext context, int index) {

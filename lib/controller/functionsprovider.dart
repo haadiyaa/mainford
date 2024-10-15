@@ -181,7 +181,8 @@ class FunctionsProvider extends ChangeNotifier {
         final response =
             await apiRepositories.requestWithdraw(token: token, amount: amount);
         final data = jsonDecode(response.body);
-        if (response.statusCode == 200) {
+        print(data);
+        if (response.statusCode == 201) {
           message = data['message'];
           notifyListeners();
         } else {

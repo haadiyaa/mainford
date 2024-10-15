@@ -160,11 +160,10 @@ class ApiRepositories {
       {required String token, required String amount}) async {
     final headers = {
       "Authorization": "Bearer $token",
-      // "Content-Type": "application/json",
     };
     final body = {"amount": int.parse(amount)};
     final response = await http.post(
-      Uri.parse('${Secrets.baseUrl}${Secrets.withdrawRequest}'),
+      Uri.parse('https://main-ford.vercel.app/api/payments/withdrawal'),
       body: jsonEncode(body),
       headers: headers,
     );
