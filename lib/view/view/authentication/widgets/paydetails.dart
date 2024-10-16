@@ -25,41 +25,31 @@ class PayDetails extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "Join the Main Ford app for just ",
-                  style: TextStyle(
-                  ),
+                  style: TextStyle(),
                 ),
                 TextSpan(
                   text: "350 INR ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
                   text: "and earn ",
-                  style: TextStyle(
-                  ),
+                  style: TextStyle(),
                 ),
                 TextSpan(
                   text: "250 INR ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
                   text: "cashback for every friend you refer! Simply send ",
-                  style: TextStyle(
-                  ),
+                  style: TextStyle(),
                 ),
                 TextSpan(
                   text: "350 INR ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
                   text: "to",
-                  style: TextStyle(
-                  ),
+                  style: TextStyle(),
                 ),
               ],
             ),
@@ -107,6 +97,9 @@ class PayDetails extends StatelessWidget {
           Constants.height15,
           const Text(
               'Upload a screenshot with payement screenshot to get started. Thanks for joining!'),
+          Constants.height15,
+          const Text(
+              'For queries: mainfordmf@gmail.com'),
         ],
       ),
     );
