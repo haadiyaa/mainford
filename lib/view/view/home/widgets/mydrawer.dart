@@ -53,6 +53,7 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.person,
                 text: 'Profile',
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const ProfilePage()));
                 },
@@ -61,6 +62,7 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.group,
                 text: 'Referrals',
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const ReferPage()));
                 },
@@ -69,6 +71,7 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.history,
                 text: 'Transactions',
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

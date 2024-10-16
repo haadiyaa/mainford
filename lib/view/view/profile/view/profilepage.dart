@@ -273,7 +273,7 @@ class ProfilePage extends StatelessWidget {
                             authProvider.logout().then(
                               (value) {
                                 Navigator.pop(context);
-                                // Navigator.pop(context);
+                                Navigator.pop(context);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

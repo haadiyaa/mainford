@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:main_ford/controller/authprovider.dart';
@@ -14,6 +15,7 @@ import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/authentication/widgets/customtextfield.dart';
+import 'package:main_ford/view/view/authentication/widgets/paydetails.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -125,32 +127,63 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: codeController,
                       ),
                       Constants.height10,
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text:
-                                  "Please complete the payment of ",
-                              style: TextStyle(
-                                fontSize: 10,
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Please complete the payment of ",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "Rs. 350/- ",
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 223, 193, 102),
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "and upload the payment screenshot to proceed with your registration.",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            TextSpan(
-                              text: "Rs. 350/- ",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 223, 193, 102),
-                                fontSize: 10,
+                          ),
+                          Constants.width10,
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                foregroundColor: AppColors.bgColor,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const PayDetails();
+                                  },
+                                );
+                              },
+                              child: const Image(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/images/upi_logo_icon_169316.png'),
                               ),
                             ),
-                            TextSpan(
-                              text:
-                                  "and upload the payment screenshot to proceed with your registration.",
-                              style: TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Constants.height15,
                       Column(
@@ -249,7 +282,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                         confirmBtnColor: AppColors.bgColor,
                                         context: context,
                                         type: QuickAlertType.success,
-                                        text: 'Request Successful! You can login after the admin approve your request.',
+                                        text:
+                                            'Request Successful! You can login after the admin approve your request.',
                                         onConfirmBtnTap: () {
                                           Navigator.pop(context);
                                           Navigator.pushReplacement(

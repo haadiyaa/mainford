@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   context, MaterialPageRoute(builder: (_) => const HomePage()));
             } else {
               print('adminapproved splash false');
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (_) => const AdminApprovePage()));
             }
           }
