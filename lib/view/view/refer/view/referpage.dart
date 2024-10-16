@@ -20,7 +20,7 @@ class ReferPage extends StatelessWidget {
         foregroundColor: AppColors.white,
         title: const Text('My Referrals'),
       ),
-      drawer: const MyDrawer(),
+      // drawer: const MyDrawer(),
       body: SizedBox(
         height: size.height,
         child: Padding(

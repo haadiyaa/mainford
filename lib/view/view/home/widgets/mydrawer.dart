@@ -3,8 +3,6 @@ import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
-import 'package:main_ford/view/view/authentication/view/registerpage.dart';
-import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
@@ -46,23 +44,24 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.home,
                 text: 'Home',
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const HomePage()));
+                  Navigator.pop(context);
+                  // Navigator.pushReplacement(context,
+                  //     MaterialPageRoute(builder: (_) => const HomePage()));
                 },
               ),
               CustomListTile(
                 icon: Icons.person,
                 text: 'Profile',
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => ProfilePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const ProfilePage()));
                 },
               ),
               CustomListTile(
                 icon: Icons.group,
                 text: 'Referrals',
                 onTap: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const ReferPage()));
                 },
               ),
@@ -70,7 +69,7 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.history,
                 text: 'Transactions',
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => const TransactionsPage()));

@@ -142,10 +142,16 @@ class FunctionsProvider extends ChangeNotifier {
         print('updated');
         userModel = UserModel.fromJson(data);
         notifyListeners();
+        message = "Successfully updated";
+        notifyListeners();
       } else {
+        message = "Updating error please try again";
+        notifyListeners();
         print(response.statusCode);
       }
     } else {
+      message = "Updating error please try again";
+      notifyListeners();
       print('token null');
     }
   }

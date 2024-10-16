@@ -54,6 +54,12 @@ class _VideosPageState extends State<VideosPage> {
                   _controller.pause();
                 }
               },
+              bottomActions:const [
+                CurrentPosition(),
+                ProgressBar(isExpanded: true,),
+                RemainingDuration(),
+                PlaybackSpeedButton(),
+              ],
             ),
             Constants.height10,
             Padding(

@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      drawer: const MyDrawer(),
+      // drawer: const MyDrawer(),
       body: Consumer<FunctionsProvider>(
         builder: (context, value, child) {
           if (value.userModel != null) {

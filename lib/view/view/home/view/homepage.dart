@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/home/view/videospage.dart';
 import 'package:main_ford/view/view/home/widgets/customcurousel.dart';
 import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
@@ -18,9 +23,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late StreamSubscription subscription;
+  var isDeviceConnected = false;
+  bool isAlertSet = false;
+
   @override
   void initState() {
     super.initState();
+    getConnectivity();
     final functionsProvider =
         Provider.of<FunctionsProvider>(context, listen: false);
     functionsProvider.getUser().then(
@@ -29,6 +39,51 @@ class _HomePageState extends State<HomePage> {
       },
     );
     functionsProvider.getPayementData();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  showDialogBox() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: AppColors.bgColor,
+          title: const Text('No Connection'),
+          content: const Text('Please check your Internet Connection'),
+          actions: [
+            CustomElButton(text: 'Okay', onPressed: () async {
+                Navigator.pop(context);
+                setState(() {
+                  isAlertSet = false;
+                });
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected) {
+                  showDialogBox();
+                  setState(() {
+                    isAlertSet = true;
+                  });
+                }
+              },),
+          ],
+        ),
+      );
+
+  getConnectivity() async {
+    print('object');
+    return subscription =
+          Connectivity().onConnectivityChanged.listen((result) async {
+        isDeviceConnected = await InternetConnectionChecker().hasConnection;
+        if (!isDeviceConnected && isAlertSet == false) {
+          showDialogBox();
+          setState(() {
+            isAlertSet = true;
+          });
+        }
+      });
   }
 
   @override

@@ -53,7 +53,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
           ),
         ],
       ),
-      drawer: const MyDrawer(),
+      // drawer: const MyDrawer(),
       body: Center(
         child: Consumer<FunctionsProvider>(
           builder: (context, value, child) {

@@ -125,6 +125,8 @@ class _EditDialogState extends State<EditDialog> {
                         (value) {
                           Navigator.pop(context);
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(functionProvider.message)));
                         },
                       );
                     }

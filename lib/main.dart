@@ -2,16 +2,22 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
+import 'package:main_ford/view/view/authentication/widgets/custombutton.dart';
 import 'package:main_ford/view/view/splash/view/splashscreen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -44,7 +50,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: MyConnectionCheck(),
+        home: SplashScreen(),
       ),
     );
   }
@@ -74,34 +80,33 @@ class _MyConnectionCheckState extends State<MyConnectionCheck> {
     super.dispose();
   }
 
-  showDialogBox() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('No Connection'),
-        content: const Text('Please check your Internet Connection!'),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              setState(() {
-                isAlertSet = false;
-              });
-              isDeviceConnected =
-                  await InternetConnectionChecker().hasConnection;
-              if (!isDeviceConnected) {
-                showDialogBox();
+  showDialogBox() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: AppColors.bgColor,
+          title: const Text('No Connection'),
+          content: const Text('Please check your Internet Connection'),
+          actions: [
+            CustomElButton(
+              text: 'Okay',
+              onPressed: () async {
+                Navigator.pop(context);
                 setState(() {
-                  isAlertSet = true;
+                  isAlertSet = false;
                 });
-              }
-            },
-            child: const Text('Okay'),
-          ),
-        ],
-      ),
-    );
-  }
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected) {
+                  showDialogBox();
+                  setState(() {
+                    isAlertSet = true;
+                  });
+                }
+              },
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
