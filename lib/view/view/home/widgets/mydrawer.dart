@@ -3,6 +3,7 @@ import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
+import 'package:main_ford/view/view/contactus/view/contactuspage.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
@@ -41,7 +42,7 @@ class MyDrawer extends StatelessWidget {
           Column(
             children: [
               CustomListTile(
-                icon: Icons.home,
+                icon: Icons.home_outlined,
                 text: 'Home',
                 onTap: () {
                   Navigator.pop(context);
@@ -50,7 +51,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
-                icon: Icons.person,
+                icon: Icons.person_outline,
                 text: 'Profile',
                 onTap: () {
                   Navigator.pop(context);
@@ -59,7 +60,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
-                icon: Icons.group,
+                icon: Icons.group_outlined,
                 text: 'Referrals',
                 onTap: () {
                   Navigator.pop(context);
@@ -76,6 +77,17 @@ class MyDrawer extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (_) => const TransactionsPage()));
+                },
+              ),
+              CustomListTile(
+                icon: Icons.info_outline,
+                text: 'About Us',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const ContactUsPage()));
                 },
               ),
               CustomListTile(
