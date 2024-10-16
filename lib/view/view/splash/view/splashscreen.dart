@@ -5,7 +5,6 @@ import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/adminapprove.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
-import 'package:main_ford/view/view/authentication/view/registerpage.dart';
 import 'package:main_ford/view/view/home/view/homepage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
