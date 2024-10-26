@@ -37,7 +37,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
             padding: const EdgeInsets.only(right: 10.0),
             child: TextButton(
               style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   foregroundColor: AppColors.white,
                   backgroundColor: AppColors.green,
                   shape: RoundedRectangleBorder(
@@ -166,7 +166,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         ),
                         Expanded(
                           child: value.userPayementModel!.payments.length == 0
-                              ? Text('No transactions yet')
+                              ? const Text('No transactions yet')
                               : ListView.builder(
                                   padding: const EdgeInsets.only(top: 20),
                                   itemCount:

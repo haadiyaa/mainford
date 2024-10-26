@@ -72,7 +72,7 @@ class PayDetails extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () async {
-                    const String textToCopy = 'mainfordmf@oksbi';
+                    const String textToCopy = 'mainfordmf@okaxis';
                     if (textToCopy.isNotEmpty) {
                       try {
                         await Clipboard.setData(
