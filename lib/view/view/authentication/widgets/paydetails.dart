@@ -67,7 +67,7 @@ class PayDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'UPI ID',
+                  'mainfordmf@okaxis',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 IconButton(
