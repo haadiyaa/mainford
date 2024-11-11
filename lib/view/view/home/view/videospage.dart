@@ -22,7 +22,7 @@ class VideosPage extends StatefulWidget {
 }
 
 class _VideosPageState extends State<VideosPage> {
-  late final YoutubePlayerController _controller = YoutubePlayerController(
+  late YoutubePlayerController _controller = YoutubePlayerController(
     initialVideoId: widget.videoId,
     flags: const YoutubePlayerFlags(
       autoPlay: true,
@@ -54,9 +54,11 @@ class _VideosPageState extends State<VideosPage> {
                   _controller.pause();
                 }
               },
-              bottomActions:const [
+              bottomActions: const [
                 CurrentPosition(),
-                ProgressBar(isExpanded: true,),
+                ProgressBar(
+                  isExpanded: true,
+                ),
                 RemainingDuration(),
                 PlaybackSpeedButton(),
               ],
@@ -95,8 +97,13 @@ class _VideosPageState extends State<VideosPage> {
 
   @override
   void dispose() {
+    accessScreenShot();
     _controller.dispose();
     super.dispose();
+  }
+
+  accessScreenShot() async {
+    await ScreenProtector.protectDataLeakageOff();
   }
 
   avoidScreenShot() async {
