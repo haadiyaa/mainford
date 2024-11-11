@@ -4,6 +4,7 @@ import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/view/view/authentication/view/loginpage.dart';
 import 'package:main_ford/view/view/contactus/view/contactuspage.dart';
+import 'package:main_ford/view/view/dashboard/view/dashboard.dart';
 import 'package:main_ford/view/view/home/widgets/customlisttile.dart';
 import 'package:main_ford/view/view/profile/view/profilepage.dart';
 import 'package:main_ford/view/view/refer/view/referpage.dart';
@@ -51,6 +52,25 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
+                icon: Icons.dashboard_outlined,
+                text: 'Dashboard',
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Dashboard()));
+                },
+              ),
+              CustomListTile(
+                icon: Icons.history,
+                text: 'Wallet',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const TransactionsPage()));
+                },
+              ),
+              CustomListTile(
                 icon: Icons.person_outline,
                 text: 'Profile',
                 onTap: () {
@@ -69,25 +89,12 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               CustomListTile(
-                icon: Icons.history,
-                text: 'Transactions',
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const TransactionsPage()));
-                },
-              ),
-              CustomListTile(
                 icon: Icons.info_outline,
                 text: 'About Us',
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const ContactUsPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const ContactUsPage()));
                 },
               ),
               CustomListTile(

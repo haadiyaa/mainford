@@ -7,14 +7,14 @@ import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/transactions/widgets/payoutdialog.dart';
 import 'package:provider/provider.dart';
 
-class TransactionsPage extends StatefulWidget {
-  const TransactionsPage({super.key});
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
 
   @override
-  State<TransactionsPage> createState() => _TransactionsPageState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
-class _TransactionsPageState extends State<TransactionsPage> {
+class _DashboardState extends State<Dashboard> {
   final String rupees = '\u{20B9}';
 
   @override
@@ -30,28 +30,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wallet'),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 10.0),
-        //     child: TextButton(
-        //       style: TextButton.styleFrom(
-        //           padding:
-        //               const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-        //           foregroundColor: AppColors.white,
-        //           backgroundColor: AppColors.green,
-        //           shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.circular(10))),
-        //       onPressed: () {
-        //         showDialog(
-        //           context: context,
-        //           builder: (context) => PayoutDialog(),
-        //         );
-        //       },
-        //       child: const Text('Withdraw'),
-        //     ),
-        //   ),
-        // ],
+        title: const Text('Dashboard'),
       ),
       // drawer: const MyDrawer(),
       body: Center(
@@ -167,26 +146,6 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Constants.height20,
-                SizedBox(
-                  width: size.width * 0.9,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
-                        foregroundColor: AppColors.white,
-                        backgroundColor: AppColors.green,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => PayoutDialog(),
-                      );
-                    },
-                    child: const Text('Withdraw Balance'),
                   ),
                 ),
                 Constants.height20,
