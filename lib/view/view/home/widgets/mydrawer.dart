@@ -55,6 +55,7 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.dashboard_outlined,
                 text: 'Dashboard',
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const Dashboard()));
                 },

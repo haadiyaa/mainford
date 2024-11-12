@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
-import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/view/transactions/widgets/payoutdialog.dart';
+import 'package:main_ford/view/view/dashboard/widgets/customcontainer.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
@@ -20,9 +18,9 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    final functionsProvider =
-        Provider.of<FunctionsProvider>(context, listen: false);
-    functionsProvider.getPayementData();
+    // final functionsProvider =
+    //     Provider.of<FunctionsProvider>(context, listen: false);
+    // functionsProvider.getPayementData();
   }
 
   @override
@@ -38,117 +36,125 @@ class _DashboardState extends State<Dashboard> {
           builder: (context, value, child) {
             return Column(
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  width: size.width * 0.9,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.tileColor,
-                  ),
+                CustomContainer(
+                  size: size,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const Text(
-                        'Balance :',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              value.userModel!.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 26,
+                              ),
+                            ),
+                            Text(
+                              value.userModel!.email,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        '$rupees ${value.userPayementModel!.balance}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                      Expanded(
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              NetworkImage(value.userModel!.photoUrl),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Constants.height20,
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    width: size.width * 0.9,
-                    // height: size.height*0.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.tileColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Payements',
-                          style: MyTextStyles.appBartextSmall,
-                        ),
-                        Expanded(
-                          child: value.userPayementModel!.payments.isEmpty
-                              ? const Text('No transactions yet')
-                              : ListView.builder(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  itemCount:
-                                      value.userPayementModel!.payments.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ListTile(
-                                      textColor: AppColors.white,
-                                      leading: value.userPayementModel!
-                                                  .payments[index].type ==
-                                              'withdrawal'
-                                          ? const Icon(
-                                              Icons.arrow_upward,
-                                              color: AppColors.red,
-                                            )
-                                          : const Icon(
-                                              Icons.arrow_downward,
-                                              color: AppColors.green,
-                                            ),
-                                      title: Text(
-                                          '$rupees ${value.userPayementModel!.payments[index].amount.toString()}'),
-                                      subtitle: Text(value.userPayementModel!
-                                          .payments[index].type),
-                                      trailing: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            value.userPayementModel!
-                                                .payments[index].status,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: value
-                                                          .userPayementModel!
-                                                          .payments[index]
-                                                          .status ==
-                                                      'completed'
-                                                  ? AppColors.green
-                                                  : value
-                                                              .userPayementModel!
-                                                              .payments[index]
-                                                              .status ==
-                                                          'rejected'
-                                                      ? AppColors.red
-                                                      : AppColors.yellow,
-                                            ),
-                                          ),
-                                          Constants.height5,
-                                          Text(DateFormat('dd/MM/yyy').format(
-                                              value.userPayementModel!
-                                                  .payments[index].updatedAt))
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                        ),
-                      ],
-                    ),
+                CustomContainer(
+                  size: size,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Earnings',
+                        style: MyTextStyles.appBartextSmall,
+                      ),
+                      // Constants.height15,
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     const Text(
+                      //       'Balance',
+                      //       style: TextStyle(
+                      //           color: Color.fromARGB(255, 224, 198, 240)),
+                      //     ),
+                      //     Text('${value.userPayementModel!.balance} /-'),
+                      //   ],
+                      // ),
+                      Constants.height10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Daily Earnings',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 224, 198, 240)),
+                          ),
+                          Text(
+                              '${value.userPayementModel!.totalDepositedToday} /-'),
+                        ],
+                      ),
+                      // Constants.height10,
+                      // const Row(
+                      //   children: [
+                      //     Text(
+                      //       'Weekly',
+                      //       style: TextStyle(
+                      //         color: Color.fromARGB(255, 107, 79, 124),
+                      //       ),
+                      //     ),
+                      //     Constants.width5,
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: Color.fromARGB(255, 107, 79, 124),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      Constants.height10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Weekly Earnings',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 224, 198, 240)),
+                          ),
+                          Text(
+                              '${value.userPayementModel!.totalDepositedWeek} /-'),
+                        ],
+                      ),
+
+                      Constants.height10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Yearly Earnings',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 224, 198, 240)),
+                          ),
+                          Text(
+                              '${value.userPayementModel!.totalDepositedYear} /-'),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Constants.height20,
               ],
             );
           },
