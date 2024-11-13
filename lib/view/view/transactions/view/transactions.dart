@@ -82,6 +82,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
+                          color: AppColors.goldenyellow,
                         ),
                       ),
                     ],

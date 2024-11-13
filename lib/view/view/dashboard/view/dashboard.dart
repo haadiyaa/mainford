@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
+import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/dashboard/widgets/customcontainer.dart';
@@ -105,26 +106,14 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 224, 198, 240)),
                           ),
                           Text(
-                              '${value.userPayementModel!.totalDepositedToday} /-'),
+                            '${value.userPayementModel!.totalDepositedToday} /-',
+                            style: const TextStyle(
+                              color: AppColors.goldenyellow,
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ),
-                      // Constants.height10,
-                      // const Row(
-                      //   children: [
-                      //     Text(
-                      //       'Weekly',
-                      //       style: TextStyle(
-                      //         color: Color.fromARGB(255, 107, 79, 124),
-                      //       ),
-                      //     ),
-                      //     Constants.width5,
-                      //     Expanded(
-                      //       child: Divider(
-                      //         color: Color.fromARGB(255, 107, 79, 124),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       Constants.height10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +124,12 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 224, 198, 240)),
                           ),
                           Text(
-                              '${value.userPayementModel!.totalDepositedWeek} /-'),
+                            '${value.userPayementModel!.totalDepositedWeek} /-',
+                            style: const TextStyle(
+                              color: AppColors.goldenyellow,
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ),
 
@@ -149,7 +143,12 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 224, 198, 240)),
                           ),
                           Text(
-                              '${value.userPayementModel!.totalDepositedYear} /-'),
+                            '${value.userPayementModel!.totalDepositedYear} /-',
+                            style: const TextStyle(
+                              color: AppColors.goldenyellow,
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ),
                     ],
