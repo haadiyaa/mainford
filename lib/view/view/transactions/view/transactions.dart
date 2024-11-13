@@ -102,7 +102,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Payements',
+                          'Transaction history',
                           style: MyTextStyles.appBartextSmall,
                         ),
                         Expanded(
