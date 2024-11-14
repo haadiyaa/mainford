@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
-import 'package:main_ford/resources/mytextstyles.dart';
 import 'package:main_ford/view/view/dashboard/widgets/customcontainer.dart';
 import 'package:provider/provider.dart';
 
