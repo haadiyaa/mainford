@@ -35,16 +35,21 @@ class _DashboardState extends State<Dashboard> {
       body: Center(
         child: Consumer<FunctionsProvider>(
           builder: (context, value, child) {
-            return Column(
-              children: [
-                CustomContainer(
-                  size: size,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomContainer(
+                    size: size,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              NetworkImage(value.userModel!.photoUrl),
+                        ),
+                        Constants.height10,
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -54,107 +59,121 @@ class _DashboardState extends State<Dashboard> {
                                 fontSize: 26,
                               ),
                             ),
-                            Text(
-                              value.userModel!.email,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
-                              ),
-                            ),
+                            // Text(
+                            //   value.userModel!.email,
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.w500,
+                            //     fontSize: 18,
+                            //   ),
+                            // ),
                           ],
                         ),
-                      ),
-                      Expanded(
-                        child: CircleAvatar(
-                          radius: 40,
-                          backgroundImage:
-                              NetworkImage(value.userModel!.photoUrl),
+                      ],
+                    ),
+                  ),
+                  Constants.height20,
+                  CustomContainer(
+                    size: size,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Daily Earnings',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 224, 198, 240),
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                    ],
+                        Constants.height10,
+                        Text(
+                          '$rupees ${value.userPayementModel!.totalDepositedToday}',
+                          style: const TextStyle(
+                            color: AppColors.goldenyellow,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Constants.height20,
-                CustomContainer(
-                  size: size,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Earnings',
-                        style: MyTextStyles.appBartextSmall,
-                      ),
-                      // Constants.height15,
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     const Text(
-                      //       'Balance',
-                      //       style: TextStyle(
-                      //           color: Color.fromARGB(255, 224, 198, 240)),
-                      //     ),
-                      //     Text('${value.userPayementModel!.balance} /-'),
-                      //   ],
-                      // ),
-                      Constants.height10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Daily Earnings',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 224, 198, 240)),
+                  Constants.height20,
+                  CustomContainer(
+                    size: size,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Weekly Earnings',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 224, 198, 240),
+                            fontSize: 16,
                           ),
-                          Text(
-                            '${value.userPayementModel!.totalDepositedToday} /-',
-                            style: const TextStyle(
-                              color: AppColors.goldenyellow,
-                              fontSize: 20,
-                            ),
+                        ),
+                        Text(
+                          '$rupees ${value.userPayementModel!.totalDepositedWeek}',
+                          style: const TextStyle(
+                            color: AppColors.goldenyellow,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      Constants.height10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Weekly Earnings',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 224, 198, 240)),
-                          ),
-                          Text(
-                            '${value.userPayementModel!.totalDepositedWeek} /-',
-                            style: const TextStyle(
-                              color: AppColors.goldenyellow,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      Constants.height10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Yearly Earnings',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 224, 198, 240)),
-                          ),
-                          Text(
-                            '${value.userPayementModel!.totalDepositedYear} /-',
-                            style: const TextStyle(
-                              color: AppColors.goldenyellow,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Constants.height20,
+                  CustomContainer(
+                    size: size,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Monthly Earnings',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 224, 198, 240),
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          '$rupees ${value.userPayementModel!.totalDepositedMonth}',
+                          style: const TextStyle(
+                            color: AppColors.goldenyellow,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Constants.height20,
+                  CustomContainer(
+                    size: size,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Yearly Earnings',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 224, 198, 240),
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          '$rupees ${value.userPayementModel!.totalDepositedYear}',
+                          style: const TextStyle(
+                            color: AppColors.goldenyellow,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),
