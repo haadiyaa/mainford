@@ -177,7 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'My Referral Code',
+                                    'User ID',
                                     style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 187, 155, 206)),
