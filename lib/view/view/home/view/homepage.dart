@@ -54,7 +54,9 @@ class _HomePageState extends State<HomePage> {
           title: const Text('No Connection'),
           content: const Text('Please check your Internet Connection'),
           actions: [
-            CustomElButton(text: 'Okay', onPressed: () async {
+            CustomElButton(
+              text: 'Okay',
+              onPressed: () async {
                 Navigator.pop(context);
                 setState(() {
                   isAlertSet = false;
@@ -67,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                     isAlertSet = true;
                   });
                 }
-              },),
+              },
+            ),
           ],
         ),
       );
@@ -75,15 +78,15 @@ class _HomePageState extends State<HomePage> {
   getConnectivity() async {
     print('object');
     return subscription =
-          Connectivity().onConnectivityChanged.listen((result) async {
-        isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        if (!isDeviceConnected && isAlertSet == false) {
-          showDialogBox();
-          setState(() {
-            isAlertSet = true;
-          });
-        }
-      });
+        Connectivity().onConnectivityChanged.listen((result) async {
+      isDeviceConnected = await InternetConnectionChecker().hasConnection;
+      if (!isDeviceConnected && isAlertSet == false) {
+        showDialogBox();
+        setState(() {
+          isAlertSet = true;
+        });
+      }
+    });
   }
 
   @override
@@ -305,81 +308,82 @@ class _HomePageState extends State<HomePage> {
               //   ),
               // ),
               Consumer<FunctionsProvider>(
-                  builder: (context, functionsProvider, child) {
-                if (functionsProvider.playListModel3 != null) {
-                  return SizedBox(
-                    height: size.height * 0.25,
-                    width: size.width,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          functionsProvider.playListModel3!.items!.length,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Constants.width10;
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => VideosPage(
-                                  videoId: functionsProvider.playListModel3!
-                                      .items![index].contentDetails!.videoId!,
-                                  nextvideoId: functionsProvider
-                                      .playListModel3!
-                                      .items![index + 1]
-                                      .contentDetails!
-                                      .videoId!,
-                                  text: functionsProvider.playListModel3!
-                                      .items![index].snippet!.title!,
-                                  desc: functionsProvider.playListModel3!
-                                      .items![index].snippet!.description!,
-                                  date: functionsProvider.playListModel3!
-                                      .items![index].snippet!.publishedAt!,
+                builder: (context, functionsProvider, child) {
+                  if (functionsProvider.playListModel3 != null) {
+                    return SizedBox(
+                      height: size.height * 0.25,
+                      width: size.width,
+                      child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            functionsProvider.playListModel3!.items!.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Constants.width10;
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => VideosPage(
+                                    videoId: functionsProvider.playListModel3!
+                                        .items![index].contentDetails!.videoId!,
+                                    nextvideoId: functionsProvider
+                                        .playListModel3!
+                                        .items![index + 1]
+                                        .contentDetails!
+                                        .videoId!,
+                                    text: functionsProvider.playListModel3!
+                                        .items![index].snippet!.title!,
+                                    desc: functionsProvider.playListModel3!
+                                        .items![index].snippet!.description!,
+                                    date: functionsProvider.playListModel3!
+                                        .items![index].snippet!.publishedAt!,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: SizedBox(
-                            width: size.width * 0.4,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: size.height * 0.15,
-                                  // width: size.width * 0.4,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        YoutubePlayer.getThumbnail(
-                                            videoId: functionsProvider
-                                                .playListModel3!
-                                                .items![index]
-                                                .contentDetails!
-                                                .videoId!),
+                              );
+                            },
+                            child: SizedBox(
+                              width: size.width * 0.4,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: size.height * 0.15,
+                                    // width: size.width * 0.4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                          YoutubePlayer.getThumbnail(
+                                              videoId: functionsProvider
+                                                  .playListModel3!
+                                                  .items![index]
+                                                  .contentDetails!
+                                                  .videoId!),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  functionsProvider.playListModel3!
-                                      .items![index].snippet!.title!,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                                  Text(
+                                    functionsProvider.playListModel3!
+                                        .items![index].snippet!.title!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-                return ShimmerVideosWidget(size: size);
-              }),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return ShimmerVideosWidget(size: size);
+                },
+              ),
               // Constants.height15,
             ],
           ),

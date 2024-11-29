@@ -3,7 +3,6 @@ import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,7 +27,7 @@ class ReferPage extends StatelessWidget {
           child: funProvider.referralModel != null
               ? funProvider.referralModel!.referrals.isEmpty
                   ? const Center(
-                      child: Text('No Refferals!'),
+                      child: Text('No Refferals yet!'),
                     )
                   : ListView.separated(
                       separatorBuilder: (context, index) => Constants.height5,
@@ -57,7 +56,7 @@ class ReferPage extends StatelessWidget {
                       },
                     )
               : ListView.separated(
-                separatorBuilder: (context, index) => Constants.height5,
+                  separatorBuilder: (context, index) => Constants.height5,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {

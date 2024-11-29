@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:main_ford/controller/authprovider.dart';
 import 'package:main_ford/controller/functionsprovider.dart';
@@ -13,8 +16,25 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  File? selectedImage;
+
+  Future<void> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        selectedImage = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +43,6 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      // drawer: const MyDrawer(),
       body: Consumer<FunctionsProvider>(
         builder: (context, value, child) {
           if (value.userModel != null) {
@@ -58,14 +77,43 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: 
-                          Stack(
+                          child: Stack(
                             clipBehavior: Clip.none,
                             children: [
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage:
-                                    NetworkImage(value.userModel!.photoUrl),
+                              selectedImage == null
+                                  ? CircleAvatar(
+                                      radius: 40,
+                                      backgroundImage: NetworkImage(
+                                          value.userModel!.photoUrl),
+                                    )
+                                  : Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        // color: AppColors.goldenyellow,
+                                        image: DecorationImage(
+                                          image: FileImage(selectedImage!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                              Positioned(
+                                bottom: -10,
+                                right: 10,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  style: IconButton.styleFrom(
+                                    foregroundColor: AppColors.white,
+                                    backgroundColor:
+                                        AppColors.inputFieldBorderColor,
+                                  ),
+                                  onPressed: () async {
+                                    await getImage();
+                                  },
+                                  icon: const Icon(Icons.add),
+                                ),
                               ),
                             ],
                           ),
@@ -129,7 +177,7 @@ class ProfilePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'My Referral Code',
+                                    'User ID',
                                     style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 187, 155, 206)),

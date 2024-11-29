@@ -4,7 +4,6 @@ import 'package:main_ford/controller/functionsprovider.dart';
 import 'package:main_ford/resources/appcolors.dart';
 import 'package:main_ford/resources/constants.dart';
 import 'package:main_ford/resources/mytextstyles.dart';
-import 'package:main_ford/view/view/home/widgets/mydrawer.dart';
 import 'package:main_ford/view/view/transactions/widgets/payoutdialog.dart';
 import 'package:provider/provider.dart';
 
@@ -31,27 +30,28 @@ class _TransactionsPageState extends State<TransactionsPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transactions'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                  foregroundColor: AppColors.white,
-                  backgroundColor: AppColors.green,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10))),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => PayoutDialog(),
-                );
-              },
-              child: const Text('Withdraw'),
-            ),
-          ),
-        ],
+        title: const Text('Wallet'),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 10.0),
+        //     child: TextButton(
+        //       style: TextButton.styleFrom(
+        //           padding:
+        //               const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        //           foregroundColor: AppColors.white,
+        //           backgroundColor: AppColors.green,
+        //           shape: RoundedRectangleBorder(
+        //               borderRadius: BorderRadius.circular(10))),
+        //       onPressed: () {
+        //         showDialog(
+        //           context: context,
+        //           builder: (context) => PayoutDialog(),
+        //         );
+        //       },
+        //       child: const Text('Withdraw'),
+        //     ),
+        //   ),
+        // ],
       ),
       // drawer: const MyDrawer(),
       body: Center(
@@ -82,66 +82,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
+                          color: AppColors.goldenyellow,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Constants.height20,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 40),
-                            // width: size.width * 0.9,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.tileColor,
-                            ),
-                            child: Center(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Withdawn this month',
-                                  textAlign: TextAlign.center,
-                                ),
-                                Constants.height5,
-                                Text(
-                                  '$rupees ${value.userPayementModel!.totalWithdrawnMonth.toString()}',
-                                  style: MyTextStyles.appBartextSmall,
-                                ),
-                              ],
-                            ))),
-                      ),
-                      Constants.width10,
-                      Expanded(
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 40),
-                            // width: size.width * 0.9,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.tileColor,
-                            ),
-                            child: Center(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Deposited this month',
-                                  textAlign: TextAlign.center,
-                                ),
-                                Constants.height5,
-                                Text(
-                                  '$rupees ${value.userPayementModel!.totalDepositedMonth.toString()}',
-                                  style: MyTextStyles.appBartextSmall,
-                                ),
-                              ],
-                            ))),
                       ),
                     ],
                   ),
@@ -161,11 +103,11 @@ class _TransactionsPageState extends State<TransactionsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Payements',
+                          'Transaction history',
                           style: MyTextStyles.appBartextSmall,
                         ),
                         Expanded(
-                          child: value.userPayementModel!.payments.length == 0
+                          child: value.userPayementModel!.payments.isEmpty
                               ? const Text('No transactions yet')
                               : ListView.builder(
                                   padding: const EdgeInsets.only(top: 20),
@@ -191,7 +133,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                       subtitle: Text(value.userPayementModel!
                                           .payments[index].type),
                                       trailing: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             value.userPayementModel!
@@ -225,6 +168,26 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                Constants.height20,
+                SizedBox(
+                  width: size.width * 0.9,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 0),
+                        foregroundColor: AppColors.white,
+                        backgroundColor: AppColors.green,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => PayoutDialog(),
+                      );
+                    },
+                    child: const Text('Withdraw Balance'),
                   ),
                 ),
                 Constants.height20,
